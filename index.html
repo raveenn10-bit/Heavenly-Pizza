@@ -1,0 +1,2462 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heavenly Pizza — Galle | A Little Slice of Heaven</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ember: {
+              50: '#fff5f2',
+              100: '#ffe6df',
+              400: '#ff6b47',
+              500: '#e84a27',
+              600: '#d43815',
+              700: '#a32208',
+              900: '#4a1004',
+            },
+            gold: {
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            obsidian: {
+              950: '#070606',
+              900: '#0d0b0a',
+              800: '#161210',
+              700: '#221c18',
+              600: '#302722',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            display: ['Cinzel', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #070606;
+      color: #f5f2eb;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d0b0a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #302722;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #e84a27;
+    }
+
+    /* Scroll progress bar */
+    #scrollProgressBar {
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+
+    /* Cinematic Glows & Gradients */
+    .ember-glow {
+      box-shadow: 0 0 35px -5px rgba(232, 74, 39, 0.5), 0 0 15px -3px rgba(245, 158, 11, 0.25);
+    }
+    .gold-glow {
+      box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.35);
+    }
+    .card-cinematic {
+      background: linear-gradient(145deg, rgba(24, 19, 16, 0.92) 0%, rgba(12, 10, 9, 0.97) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-cinematic:hover {
+      border-color: rgba(232, 74, 39, 0.45);
+      box-shadow: 0 22px 45px -15px rgba(0, 0, 0, 0.85), 0 0 28px -5px rgba(232, 74, 39, 0.28);
+    }
+    .glass-nav {
+      background: rgba(11, 9, 8, 0.90);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    /* Hero directional vignette matching Screenshot (599).jpg */
+    .hero-cinematic-vignette {
+      background:
+        linear-gradient(90deg, rgba(7, 6, 6, 0.92) 0%, rgba(7, 6, 6, 0.72) 42%, rgba(7, 6, 6, 0.28) 72%, rgba(7, 6, 6, 0.65) 100%),
+        linear-gradient(180deg, rgba(7, 6, 6, 0.55) 0%, rgba(7, 6, 6, 0.15) 45%, rgba(7, 6, 6, 0.95) 100%);
+    }
+
+    .text-gradient-gold {
+      background: linear-gradient(135deg, #fff5eb 0%, #fcd34d 45%, #f59e0b 75%, #e84a27 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 3D Perspective & Multi-Layer Depth System */
+    .perspective-stage {
+      perspective: 1300px;
+      transform-style: preserve-3d;
+    }
+    .depth-card-3d {
+      position: relative;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      transition: box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+    .depth-layer-bg {
+      transform: translateZ(-25px) scale(1.06);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .depth-layer-img {
+      transform: translateZ(0px) scale(1.02);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .depth-layer-mid {
+      transform: translateZ(38px);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.65);
+    }
+    .depth-layer-front {
+      transform: translateZ(72px);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      text-shadow: 0 10px 24px rgba(0, 0, 0, 0.85);
+    }
+    /* Exploded 3D layer view mode */
+    .exploded-3d .depth-layer-bg {
+      transform: translateZ(-55px) scale(1.1);
+    }
+    .exploded-3d .depth-layer-img {
+      transform: translateZ(20px) scale(0.96);
+      box-shadow: 0 25px 50px rgba(232, 74, 39, 0.35);
+    }
+    .exploded-3d .depth-layer-mid {
+      transform: translateZ(78px) translateY(-8px);
+    }
+    .exploded-3d .depth-layer-front {
+      transform: translateZ(120px) translateY(-12px);
+    }
+
+    /* Specular glare overlay on 3D cards */
+    .depth-glare {
+      background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.22) 0%, rgba(232, 74, 39, 0.08) 35%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+    .depth-card-3d:hover .depth-glare {
+      opacity: 1;
+    }
+
+    /* Typography 3D Char/Word wrappers */
+    .kinetic-word {
+      display: inline-block;
+      transform-origin: 50% 100%;
+      will-change: transform, opacity;
+    }
+
+    /* Floating Circular Badge in Hero Bottom-Right */
+    .hero-circle-badge {
+      background: radial-gradient(circle at 30% 30%, rgba(36, 28, 24, 0.92) 0%, rgba(12, 10, 9, 0.96) 100%);
+      border: 1px solid rgba(232, 74, 39, 0.38);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), inset 0 0 25px rgba(232, 74, 39, 0.15);
+      transform: rotate(-8deg);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+    }
+    .hero-circle-badge:hover {
+      transform: rotate(0deg) scale(1.06) translateY(-4px);
+      border-color: rgba(232, 74, 39, 0.85);
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-9px); }
+    }
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="selection:bg-ember-500 selection:text-white">
+
+  <!-- GSAP Scroll Progress Bar -->
+  <div id="scrollProgressBar" class="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-ember-500 via-gold-400 to-ember-500 z-50 pointer-events-none"></div>
+
+  <!-- TOP ORANGE-RED ANNOUNCEMENT BAR (Matching Screenshot 599) -->
+  <div class="bg-[#e03e1a] text-white text-[11px] sm:text-xs font-semibold tracking-[0.16em] uppercase py-2.5 px-4 sm:px-8 border-b border-white/15 relative z-40">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <span class="font-bold tracking-[0.18em]">GOOD FOOD. GOOD COMPANY. GALLE.</span>
+      <a href="https://maps.app.goo.gl/kq4AhGKhzCb9FAmH7?g_st=ic" target="_blank" rel="noopener noreferrer" class="hover:text-amber-200 transition flex items-center gap-1.5 font-bold tracking-[0.15em]">
+        <span>FIND YOUR LITTLE SLICE OF HEAVEN</span>
+        <span>↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- STICKY DARK HEADER WITH OFFICIAL UPLOADED LOGO (Matching Screenshot 599) -->
+  <header class="sticky top-0 z-40 glass-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <!-- Brand Logo using User's Uploaded Official Logo -->
+      <a href="#heroSection" class="flex items-center gap-3.5 group focus:outline-none">
+        <div class="relative w-12 h-12 sm:w-13 sm:h-13 rounded-full overflow-hidden border-2 border-ember-500/80 shadow-lg ember-glow group-hover:scale-105 transition duration-300 shrink-0 bg-[#e03e1a]">
+          <img src="assets/heavenly-logo.jpg" alt="Heavenly Pizza Official Logo" class="w-full h-full object-cover" />
+        </div>
+        <div class="leading-none">
+          <span class="block font-serif font-extrabold text-lg sm:text-xl tracking-wider text-white">HEAVENLY</span>
+          <p id="brandSubTagline" class="text-xs text-stone-300 font-serif italic mt-0.5">pizza · galle</p>
+        </div>
+      </a>
+
+      <!-- Center Desktop Navigation Links (Matching Screenshot 599) -->
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-stone-300">
+        <a href="#menuSection" class="hover:text-white transition">The menu</a>
+        <a href="#customizerSection" class="hover:text-white transition">Slice Studio</a>
+        <a href="#ambienceSection" class="hover:text-white transition">Our vibe</a>
+        <a href="#reviewsSection" class="hover:text-white transition">Stories</a>
+        <a href="#reservationSection" class="hover:text-white transition">Find us</a>
+      </nav>
+
+      <!-- Right Action Buttons: Cart Bag + LET'S EAT CTA + Mobile Menu -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <button id="openCartBtn" type="button" class="relative flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white text-xs sm:text-sm font-semibold transition">
+          <span>🍕</span>
+          <span class="sr-only sm:not-sr-only sm:inline text-stone-200">Your Order</span>
+          <span id="cartCountBadge" class="px-2 py-0.5 rounded-full bg-ember-500 text-white text-xs font-bold">0</span>
+        </button>
+
+        <a href="#menuSection" id="headerLetsEatBtn" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white text-xs sm:text-sm font-bold tracking-wider uppercase shadow-lg ember-glow transition">
+          <span>LET'S EAT</span>
+          <span>↗</span>
+        </a>
+
+        <button id="mobileMenuBtn" type="button" aria-label="Toggle Menu" class="lg:hidden p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Collapsible Mobile Menu -->
+    <div id="mobileNavDrawer" class="hidden lg:hidden bg-obsidian-900/98 border-b border-white/10 px-4 pt-3 pb-5 space-y-2.5 text-sm">
+      <a href="#heroSection" class="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200">✨ Hero Video Experience</a>
+      <a href="#menuSection" class="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200">🍕 The Menu (27 Items)</a>
+      <a href="#customizerSection" class="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200">🔥 Interactive Slice Studio</a>
+      <a href="#ambienceSection" class="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200">🌿 Our Vibe (Garden &amp; Indoor)</a>
+      <a href="#reviewsSection" class="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200">⭐ Customer Stories (10K+)</a>
+      <a href="#reservationSection" class="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200">📍 Find Us &amp; Book a Table</a>
+      <div class="pt-2 flex gap-2">
+        <a href="tel:+94711118989" class="flex-1 text-center py-2.5 rounded-lg bg-white/10 text-amber-200 font-medium text-xs">📞 Call 071 111 8989</a>
+        <a href="https://wa.me/94711118989" target="_blank" rel="noopener noreferrer" class="flex-1 text-center py-2.5 rounded-lg bg-emerald-600/80 text-white font-medium text-xs">💬 WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CINEMATIC HERO SECTION WITH UPLOADED VIDEO, GSAP TYPOGRAPHY & SCREENSHOT (599) DESIGN -->
+  <section id="heroSection" class="relative min-h-[90vh] flex flex-col justify-between overflow-hidden">
+    <!-- Full-Bleed Uploaded Video Background -->
+    <div id="heroVideoWrapper" class="absolute inset-0 z-0 overflow-hidden">
+      <video
+        id="heroBgVideo"
+        src="assets/hero-video.mp4"
+        poster="assets/heavenly-mix-pizza.jpg"
+        autoplay
+        loop
+        muted
+        playsinline
+        class="w-full h-full object-cover object-center scale-105 will-change-transform"
+      ></video>
+      <div class="absolute inset-0 hero-cinematic-vignette"></div>
+    </div>
+
+    <!-- Subtle Floating Oven Embers Canvas Overlay -->
+    <canvas id="emberCanvas" class="absolute inset-0 z-10 pointer-events-none opacity-65"></canvas>
+
+
+
+    <!-- Main Hero Editorial Content (Matching Screenshot 599 Layout & Typography) -->
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 w-full my-auto">
+      <div class="grid lg:grid-cols-12 gap-8 items-end">
+        <!-- Left Editorial Column -->
+        <div class="lg:col-span-8 space-y-6" id="heroEditorialCol">
+          <!-- Kicker with orange dot -->
+          <div class="inline-flex items-center gap-3 text-xs sm:text-sm tracking-[0.25em] uppercase text-stone-300 font-semibold">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#e84a27] shadow-[0_0_12px_#e84a27]"></span>
+            <span id="heroBadgeText">HEAVENLY PIZZA &nbsp;&nbsp; GALLE, SRI LANKA</span>
+          </div>
+
+          <!-- Editorial Serif Headline: "A little slice / of heaven." -->
+          <h1 class="font-serif text-5xl sm:text-7xl lg:text-[5.4rem] font-bold tracking-tight leading-[1.03] perspective-stage">
+            <span id="heroTitleLine1" class="block text-white drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]">A little slice</span>
+            <span id="heroTitleLine2" class="block mt-1 drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]">
+              <span class="text-white">of </span><em class="italic font-serif font-normal text-[#f04e23]">heaven.</em>
+            </span>
+          </h1>
+
+          <!-- Two-line Subtitle from Screenshot 599 -->
+          <p id="heroSubtitle" class="text-stone-200/95 text-base sm:text-xl max-w-xl leading-relaxed font-normal pt-1">
+            Big cravings. Beautiful moments.<br />
+            Your next favourite bite is right here in Galle.
+          </p>
+
+          <!-- Primary CTA Button Row -->
+          <div class="flex flex-wrap items-center gap-4 pt-2" id="heroCtaRow">
+            <a href="#menuSection" class="px-7 py-4 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white font-bold text-xs sm:text-sm tracking-[0.14em] uppercase shadow-xl ember-glow transition transform hover:-translate-y-0.5 flex items-center gap-3">
+              <span>EXPLORE THE MENU</span>
+              <span class="text-base leading-none">↗</span>
+            </a>
+          </div>
+
+          <!-- Subtle Horizontal Rule + Asterisk Callout from Screenshot 599 -->
+          <div class="pt-4 max-w-md border-t border-white/15" id="heroMagicCallout">
+            <div class="flex items-start gap-3 pt-4">
+              <span class="text-[#e84a27] font-serif text-3xl leading-none font-bold select-none">*</span>
+              <div>
+                <div class="text-xs font-extrabold tracking-[0.2em] uppercase text-white">
+                  PIZZA. PEOPLE. A LITTLE MAGIC.
+                </div>
+                <p class="font-serif italic text-stone-300 text-sm sm:text-base mt-0.5">
+                  Bring your appetite. We'll take it from here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Floating Circular "MORE THAN A SLICE." Badge + Quick-Order Spotlight -->
+        <div class="lg:col-span-4 flex flex-col items-start lg:items-end justify-end gap-5">
+          <!-- Floating Tilted Circular Badge from Screenshot 599 -->
+          <div id="heroCircleBadge" class="hero-circle-badge w-44 h-44 sm:w-48 sm:h-48 rounded-full flex flex-col items-center justify-center text-center p-5 cursor-pointer select-none">
+            <img src="assets/heavenly-logo.jpg" alt="Heavenly Pizza Emblem" class="w-10 h-10 rounded-full object-cover border border-ember-500 mb-2 shadow-md" />
+            <span class="font-serif italic font-bold text-white text-sm sm:text-base leading-tight tracking-wide">MORE THAN</span>
+            <span class="font-serif italic font-bold text-white text-sm sm:text-base leading-tight tracking-wide">A SLICE.</span>
+            <span class="text-[9px] uppercase tracking-[0.22em] text-amber-300/90 font-semibold mt-2">HEAVENLY PIZZA · GALLE</span>
+          </div>
+
+          <!-- Compact Quick-Order Crown Jewel Card (Preserves Quick-Add Buttons) -->
+          <div class="card-cinematic rounded-2xl p-4 w-full max-w-sm backdrop-blur-md border border-white/15">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="text-amber-300 font-semibold">👑 Instant Oven Quick-Add</span>
+              <span class="text-stone-400">4.4★ (95+ Reviews)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" data-quick-add="heavenly-mix" class="flex-1 py-2.5 px-3 rounded-xl bg-ember-500 hover:bg-ember-600 text-white font-semibold text-xs transition shadow-md">
+                + Add Heavenly Mix (LKR 2,100)
+              </button>
+              <button type="button" data-quick-add="devilled-supreme" class="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-amber-200 font-medium text-xs transition border border-white/10">
+                + Devilled (1,750)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Hero Bar: SCROLL TO GET HUNGRY ↓ -->
+    <div class="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-6 flex items-center justify-between text-[11px] tracking-[0.22em] uppercase text-stone-400 font-semibold">
+      <a href="#signatureShowcaseSection" class="hover:text-white transition flex items-center gap-2 group">
+        <span>SCROLL TO GET HUNGRY</span>
+        <span class="inline-block group-hover:translate-y-1 transition-transform text-ember-400">↓</span>
+      </a>
+      <span class="hidden sm:inline text-stone-400/80">10K+ FACEBOOK COMMUNITY · KAHADUWAWATTHA, GALLE</span>
+    </div>
+  </section>
+
+  <!-- SIGNATURE CHEF'S SPOTLIGHT SHOWCASE WITH 3D DEPTH & GSAP SCROLL PARALLAX -->
+  <section id="signatureShowcaseSection" class="py-20 sm:py-28 bg-gradient-to-b from-obsidian-950 via-obsidian-900 to-obsidian-950 border-t border-white/10 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Clean Editorial Section Header -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-6">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-[0.22em] text-ember-400 block mb-2">Handcrafted in Galle • Signature Favorites</span>
+          <h2 class="gsap-split-heading font-serif text-3xl sm:text-5xl font-bold text-white leading-tight">
+            CRAFTED FOR <span class="italic font-normal text-[#f04e23]">CRAVINGS.</span>
+          </h2>
+          <p class="gsap-fade-up text-stone-300 text-sm sm:text-base max-w-xl mt-3">
+            From wood-fired coastal seafood pizzas and fiery Southern Nai Miris specials to bubbling oven-baked chicken lasagna.
+          </p>
+        </div>
+        <a href="#menuSection" class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-amber-300 hover:text-white transition">
+          <span>View Full 27-Item Menu</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <!-- 3D Depth Multi-Plane Cards Grid -->
+      <div id="depthCardsStage" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 perspective-stage">
+        <!-- 3D Depth Card 1: Heavenly Mix Supreme -->
+        <div class="depth-card-3d gsap-scroll-depth card-cinematic rounded-3xl p-6 sm:p-7 cursor-pointer" data-depth-speed="-1">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <!-- Z-Layer -25px: Ambient Glow Halo -->
+          <div class="depth-layer-bg absolute -inset-2 bg-gradient-to-br from-ember-500/20 via-transparent to-amber-500/15 rounded-3xl blur-xl pointer-events-none"></div>
+
+          <!-- Z-Layer 38px: Floating Top Badges -->
+          <div class="depth-layer-mid relative z-20 flex items-center justify-between mb-4">
+            <span class="px-3.5 py-1.5 rounded-full bg-obsidian-950/90 border border-ember-500/50 text-amber-300 text-xs font-bold shadow-lg">
+              👑 #1 Crown Jewel Bestseller
+            </span>
+            <span class="px-3 py-1 rounded-full bg-ember-500 text-white text-xs font-extrabold shadow-lg">
+              LKR 2,100
+            </span>
+          </div>
+
+          <!-- Z-Layer 0px: Main High-Contrast Dish Image -->
+          <div class="depth-layer-img relative h-64 sm:h-72 rounded-2xl overflow-hidden border border-white/15 mb-5">
+            <img src="assets/heavenly-mix-pizza.jpg" alt="Heavenly Mix 3D Pizza" class="gsap-parallax-img w-full h-full object-cover scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent"></div>
+          </div>
+
+          <!-- Z-Layer 38px: Floating Ingredient Pills -->
+          <div class="depth-layer-mid relative z-20 flex flex-wrap gap-2 mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-amber-200">🦐 Ocean Prawns &amp; Cuttlefish</span>
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-emerald-300">🧀 100% Molten Mozzarella</span>
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-ember-400">🍗 Spicy Roast Chicken</span>
+          </div>
+
+          <!-- Z-Layer 72px: Foreground Typography & Action -->
+          <div class="depth-layer-front relative z-20 flex items-end justify-between gap-4">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-white">Heavenly Mix Supreme</h3>
+              <p class="text-xs sm:text-sm text-stone-300 mt-1">
+                Seven coastal &amp; wood-fired toppings layered over hand-tossed olive oil crust.
+              </p>
+            </div>
+            <button type="button" data-depth-add="heavenly-mix" class="shrink-0 px-4 py-2.5 rounded-xl bg-ember-500 hover:bg-ember-600 text-white text-xs font-bold uppercase tracking-wider shadow-lg transition">
+              + Order Slice
+            </button>
+          </div>
+        </div>
+
+        <!-- 3D Depth Card 2: Devilled & Nai Miris Supreme -->
+        <div class="depth-card-3d gsap-scroll-depth card-cinematic rounded-3xl p-6 sm:p-7 cursor-pointer" data-depth-speed="1">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <div class="depth-layer-bg absolute -inset-2 bg-gradient-to-br from-amber-500/20 via-transparent to-ember-500/20 rounded-3xl blur-xl pointer-events-none"></div>
+
+          <div class="depth-layer-mid relative z-20 flex items-center justify-between mb-4">
+            <span class="px-3.5 py-1.5 rounded-full bg-obsidian-950/90 border border-amber-500/50 text-ember-400 text-xs font-bold shadow-lg">
+              🌶️ Southern Sri Lankan Fire
+            </span>
+            <span class="px-3 py-1 rounded-full bg-amber-500 text-obsidian-950 text-xs font-extrabold shadow-lg">
+              LKR 1,750
+            </span>
+          </div>
+
+          <div class="depth-layer-img relative h-64 sm:h-72 rounded-2xl overflow-hidden border border-white/15 mb-5">
+            <img src="assets/devilled-pizza.jpg" alt="Devilled Chicken & Nai Miris Pizza" class="gsap-parallax-img w-full h-full object-cover scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent"></div>
+          </div>
+
+          <div class="depth-layer-mid relative z-20 flex flex-wrap gap-2 mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-ember-400">🔥 Authentic Nai Miris</span>
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-amber-200">🍗 Sweet-Chili Devilled Glaze</span>
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-stone-200">🧅 Crisp Capsicum &amp; Onion</span>
+          </div>
+
+          <div class="depth-layer-front relative z-20 flex items-end justify-between gap-4">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-white">Devilled &amp; Nai Miris Supreme</h3>
+              <p class="text-xs sm:text-sm text-stone-300 mt-1">
+                Galle's signature sweet-heat devilled chicken fused with aromatic scotch bonnet chilli.
+              </p>
+            </div>
+            <button type="button" data-depth-add="devilled-supreme" class="shrink-0 px-4 py-2.5 rounded-xl bg-ember-500 hover:bg-ember-600 text-white text-xs font-bold uppercase tracking-wider shadow-lg transition">
+              + Order Slice
+            </button>
+          </div>
+        </div>
+
+        <!-- 3D Depth Card 3: Oven-Baked Lasagna & Carbonara -->
+        <div class="depth-card-3d gsap-scroll-depth card-cinematic rounded-3xl p-6 sm:p-7 cursor-pointer" data-depth-speed="-1">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <div class="depth-layer-bg absolute -inset-2 bg-gradient-to-br from-gold-500/15 via-transparent to-ember-500/15 rounded-3xl blur-xl pointer-events-none"></div>
+
+          <div class="depth-layer-mid relative z-20 flex items-center justify-between mb-4">
+            <span class="px-3.5 py-1.5 rounded-full bg-obsidian-950/90 border border-gold-400/50 text-gold-300 text-xs font-bold shadow-lg">
+              🧀 "Every Layer Tells a Story"
+            </span>
+            <span class="px-3 py-1 rounded-full bg-ember-500 text-white text-xs font-extrabold shadow-lg">
+              LKR 1,450
+            </span>
+          </div>
+
+          <div class="depth-layer-img relative h-64 sm:h-72 rounded-2xl overflow-hidden border border-white/15 mb-5">
+            <img src="assets/baked-lasagna.jpg" alt="Heavenly Baked Chicken Lasagna" class="gsap-parallax-img w-full h-full object-cover scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent"></div>
+          </div>
+
+          <div class="depth-layer-mid relative z-20 flex flex-wrap gap-2 mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-amber-200">🍝 Rich Chicken Ragù</span>
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-gold-300">🥛 Velvety Béchamel</span>
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-emerald-300">🌿 Fresh Italian Herbs</span>
+          </div>
+
+          <div class="depth-layer-front relative z-20 flex items-end justify-between gap-4">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-white">Baked Chicken Lasagna</h3>
+              <p class="text-xs sm:text-sm text-stone-300 mt-1">
+                Golden bubbling mozzarella crust over velvety béchamel and spiced chicken ragù.
+              </p>
+            </div>
+            <button type="button" data-depth-add="heavenly-lasagna" class="shrink-0 px-4 py-2.5 rounded-xl bg-ember-500 hover:bg-ember-600 text-white text-xs font-bold uppercase tracking-wider shadow-lg transition">
+              + Order Dish
+            </button>
+          </div>
+        </div>
+
+        <!-- 3D Depth Card 4: Crispy Chicken Burgers & Brown Sugar Boba -->
+        <div class="depth-card-3d gsap-scroll-depth card-cinematic rounded-3xl p-6 sm:p-7 cursor-pointer" data-depth-speed="1">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <div class="depth-layer-bg absolute -inset-2 bg-gradient-to-br from-emerald-500/15 via-transparent to-amber-500/20 rounded-3xl blur-xl pointer-events-none"></div>
+
+          <div class="depth-layer-mid relative z-20 flex items-center justify-between mb-4">
+            <span class="px-3.5 py-1.5 rounded-full bg-obsidian-950/90 border border-emerald-400/50 text-emerald-300 text-xs font-bold shadow-lg">
+              🍔 Crunchy &amp; Refreshing Pair
+            </span>
+            <span class="px-3 py-1 rounded-full bg-amber-500 text-obsidian-950 text-xs font-extrabold shadow-lg">
+              LKR 680 – 750
+            </span>
+          </div>
+
+          <div class="depth-layer-img relative h-64 sm:h-72 rounded-2xl overflow-hidden border border-white/15 mb-5">
+            <img src="assets/crispy-chicken-burger.jpg" alt="Golden Crispy Chicken Burger and Fries" class="gsap-parallax-img w-full h-full object-cover scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent"></div>
+          </div>
+
+          <div class="depth-layer-mid relative z-20 flex flex-wrap gap-2 mb-4">
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-amber-200">🍔 Crispy Chicken Fillet</span>
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-purple-300">🧋 Brown Sugar Boba Tea</span>
+            <span class="px-2.5 py-1 rounded-lg bg-obsidian-950/90 border border-white/15 text-[11px] text-emerald-300">🍟 Seasoned Peri-Peri Fries</span>
+          </div>
+
+          <div class="depth-layer-front relative z-20 flex items-end justify-between gap-4">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-white">Crispy Burgers &amp; Boba</h3>
+              <p class="text-xs sm:text-sm text-stone-300 mt-1">
+                Ultra-crunchy golden chicken burgers paired with chilled brown sugar pearl milk tea.
+              </p>
+            </div>
+            <button type="button" data-depth-add="crispy-chicken-burger" class="shrink-0 px-4 py-2.5 rounded-xl bg-ember-500 hover:bg-ember-600 text-white text-xs font-bold uppercase tracking-wider shadow-lg transition">
+              + Order Burger
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND PILLARS RIBBON -->
+  <section class="border-y border-white/10 bg-obsidian-900/70 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center sm:text-left">
+        <div class="gsap-fade-up flex flex-col sm:flex-row items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-ember-500/15 border border-ember-500/30 flex items-center justify-center text-xl shrink-0">🔥</div>
+          <div>
+            <h3 class="text-sm font-bold text-white">Handcrafted Crust</h3>
+            <p class="text-xs text-stone-400">Fresh dough &amp; olive oil baked golden</p>
+          </div>
+        </div>
+        <div class="gsap-fade-up flex flex-col sm:flex-row items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-xl shrink-0">🌶️</div>
+          <div>
+            <h3 class="text-sm font-bold text-white">Authentic Galle Flavours</h3>
+            <p class="text-xs text-stone-400">Devilled chicken, Nai Miris &amp; seafood</p>
+          </div>
+        </div>
+        <div class="gsap-fade-up flex flex-col sm:flex-row items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-xl shrink-0">🌿</div>
+          <div>
+            <h3 class="text-sm font-bold text-white">Peaceful Garden Seating</h3>
+            <p class="text-xs text-stone-400">Cozy indoor &amp; outdoor family vibe</p>
+          </div>
+        </div>
+        <div class="gsap-fade-up flex flex-col sm:flex-row items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-xl shrink-0">🛵</div>
+          <div>
+            <h3 class="text-sm font-bold text-white">Fast Galle Delivery</h3>
+            <p class="text-xs text-stone-400">Direct WhatsApp, Uber Eats &amp; PickMe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CINEMATIC FULL MENU EXPLORER -->
+  <section id="menuSection" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-ember-400 block mb-2">Verified Galle Menu &amp; Prices</span>
+        <h2 id="menuSectionTitle" class="gsap-split-heading font-serif text-3xl sm:text-5xl font-bold text-white">
+          THE HEAVENLY <span class="italic font-normal text-[#f04e23]">COLLECTION.</span>
+        </h2>
+      </div>
+      <!-- Search & Quick Filter Controls -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <div class="relative">
+          <input id="menuSearchInput" type="text" placeholder="Search pizza, nai miris, lasagna, rice..." class="w-full sm:w-72 pl-10 pr-4 py-2.5 rounded-full bg-obsidian-800 border border-white/15 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-ember-500" />
+          <svg class="w-4 h-4 text-stone-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <select id="dietaryFilterSelect" aria-label="Filter menu by tag" class="px-4 py-2.5 rounded-full bg-obsidian-800 border border-white/15 text-sm text-amber-200 focus:outline-none focus:border-ember-500">
+          <option value="all">✨ All Specialties</option>
+          <option value="popular">⭐ Customer Favorites</option>
+          <option value="spicy">🌶️ Spicy / Nai Miris Kick</option>
+          <option value="seafood">🦐 Coastal Seafood</option>
+          <option value="budget">💰 Under LKR 1,250</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Category Tabs -->
+    <div id="categoryTabsContainer" class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
+      <button type="button" data-category="all" class="menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-ember-500 text-white shadow-lg transition">
+        🍕 All Items (27)
+      </button>
+      <button type="button" data-category="premium-supreme" class="menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-obsidian-800 hover:bg-obsidian-700 text-stone-300 border border-white/10 transition">
+        👑 Premium &amp; Supreme Pizzas
+      </button>
+      <button type="button" data-category="deluxe-classic" class="menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-obsidian-800 hover:bg-obsidian-700 text-stone-300 border border-white/10 transition">
+        🧀 Deluxe &amp; Classic Pizzas
+      </button>
+      <button type="button" data-category="pasta-lasagna" class="menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-obsidian-800 hover:bg-obsidian-700 text-stone-300 border border-white/10 transition">
+        🍝 Lasagna &amp; Pastas
+      </button>
+      <button type="button" data-category="burgers-chicken" class="menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-obsidian-800 hover:bg-obsidian-700 text-stone-300 border border-white/10 transition">
+        🍔 Burgers, Wraps &amp; Crispy Chicken
+      </button>
+      <button type="button" data-category="fried-rice" class="menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-obsidian-800 hover:bg-obsidian-700 text-stone-300 border border-white/10 transition">
+        🍚 Basmati Fried Rice
+      </button>
+      <button type="button" data-category="bites-drinks" class="menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-obsidian-800 hover:bg-obsidian-700 text-stone-300 border border-white/10 transition">
+        🧋 Mocktails, Bubble Tea &amp; Bites
+      </button>
+    </div>
+
+    <!-- Dynamic Menu Grid -->
+    <div id="menuGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 perspective-stage"></div>
+
+    <!-- Empty State if Search has no matches -->
+    <div id="menuEmptyState" class="hidden text-center py-14 card-cinematic rounded-3xl p-8">
+      <div class="text-4xl mb-3">🍕</div>
+      <h3 class="text-lg font-bold text-white mb-1">No matching dishes found</h3>
+      <p class="text-xs text-stone-400 mb-4">Try clearing your search or switching category tabs.</p>
+      <button id="resetMenuFiltersBtn" type="button" class="px-5 py-2 rounded-full bg-ember-500 text-white text-xs font-semibold">Show All Menu Items</button>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE "SLICE STUDIO" — CUSTOM 3D PIZZA BUILDER -->
+  <section id="customizerSection" class="py-16 sm:py-24 bg-gradient-to-b from-obsidian-900 via-obsidian-800/80 to-obsidian-950 border-y border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-400 block mb-2">Interactive 3D Slice Studio</span>
+        <h2 class="gsap-split-heading font-serif text-3xl sm:text-5xl font-bold text-white">
+          CRAFT YOUR OWN <span class="italic font-normal text-[#f04e23]">HEAVENLY SLICE.</span>
+        </h2>
+        <p class="gsap-fade-up text-sm text-stone-300 mt-2">
+          Choose your artisan crust, Sri Lankan spice intensity, and signature toppings with real-time pricing before sending your custom creation straight to our oven.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8 items-start perspective-stage">
+        <!-- Left: Live Visual 3D Pizza Preview Card -->
+        <div class="lg:col-span-5 depth-card-3d card-cinematic rounded-3xl p-6 sticky top-24">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <div class="depth-layer-img relative rounded-2xl overflow-hidden h-64 mb-5 border border-white/10">
+            <img id="studioPreviewImg" src="assets/heavenly-mix-pizza.jpg" alt="Custom Pizza Preview" class="w-full h-full object-cover transition-all duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/30 to-transparent"></div>
+            <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+              <span id="studioSizeBadge" class="px-3 py-1 rounded-full bg-obsidian-950/90 border border-white/15 text-xs font-semibold text-amber-300">Large (12")</span>
+              <span id="studioSpiceBadge" class="px-3 py-1 rounded-full bg-ember-500/90 text-xs font-semibold text-white">🌶️ Galle Devilled Kick</span>
+            </div>
+            <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+              <div>
+                <span class="text-[11px] text-stone-300 block">Custom Oven Creation</span>
+                <h3 id="studioSummaryTitle" class="text-lg font-bold text-white">Chef's Custom Heavenly Pizza</h3>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] text-stone-400 block">Total Price</span>
+                <span id="studioTotalPrice" class="text-2xl font-extrabold text-gold-400">LKR 1,850</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="depth-layer-mid space-y-3 text-xs text-stone-300 mb-6 bg-obsidian-950/60 p-4 rounded-2xl border border-white/5">
+            <div class="flex justify-between">
+              <span class="text-stone-400">Crust &amp; Size:</span>
+              <span id="studioSummaryCrust" class="font-medium text-white">Large 12" • Hand-Tossed Olive Oil Crust</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-stone-400">Base Sauce &amp; Spice:</span>
+              <span id="studioSummarySauce" class="font-medium text-amber-200">Rich Marinara • Galle Devilled Kick</span>
+            </div>
+            <div class="flex justify-between items-start gap-4">
+              <span class="text-stone-400 shrink-0">Selected Toppings:</span>
+              <span id="studioSummaryToppings" class="font-medium text-right text-emerald-300">Devilled Chicken, Mozzarella Cheese, Caramelized Onion</span>
+            </div>
+          </div>
+
+          <button id="addCustomPizzaBtn" type="button" class="depth-layer-front w-full py-4 rounded-2xl bg-gradient-to-r from-ember-500 to-amber-600 hover:from-ember-600 hover:to-amber-500 text-white font-bold text-sm shadow-xl ember-glow transition flex items-center justify-center gap-2">
+            <span>🍕 Add Custom Pizza to Order</span>
+          </button>
+        </div>
+
+        <!-- Right: Step-by-Step Builder Controls -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Step 1: Size -->
+          <div class="gsap-scroll-depth card-cinematic rounded-3xl p-6">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-amber-300 mb-4">1. Select Pizza Size</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button type="button" data-size="Regular 8&quot;" data-size-price="990" class="studio-size-btn p-4 rounded-2xl border border-white/10 bg-obsidian-900/80 text-left hover:border-ember-500 transition">
+                <div class="font-bold text-white text-sm">Regular (8")</div>
+                <div class="text-xs text-stone-400 mt-0.5">4 Slices • Solo Treat</div>
+                <div class="text-gold-400 font-bold text-xs mt-2">Base LKR 990</div>
+              </button>
+              <button type="button" data-size="Medium 10&quot;" data-size-price="1350" class="studio-size-btn p-4 rounded-2xl border border-white/10 bg-obsidian-900/80 text-left hover:border-ember-500 transition">
+                <div class="font-bold text-white text-sm">Medium (10")</div>
+                <div class="text-xs text-stone-400 mt-0.5">6 Slices • Duo Share</div>
+                <div class="text-gold-400 font-bold text-xs mt-2">Base LKR 1,350</div>
+              </button>
+              <button type="button" data-size="Large 12&quot;" data-size-price="1650" class="studio-size-btn p-4 rounded-2xl border-2 border-ember-500 bg-ember-500/15 text-left transition">
+                <div class="font-bold text-white text-sm">Large (12") ⭐</div>
+                <div class="text-xs text-stone-300 mt-0.5">8 Slices • Family Feast</div>
+                <div class="text-gold-400 font-bold text-xs mt-2">Base LKR 1,650</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Artisanal Crust & Spice Level -->
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div class="gsap-scroll-depth card-cinematic rounded-3xl p-6">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-amber-300 mb-4">2. Artisanal Crust</h3>
+              <div class="space-y-2.5">
+                <button type="button" data-crust="Hand-Tossed Olive Oil Crust" data-crust-price="0" class="studio-crust-btn w-full p-3 rounded-xl border-2 border-ember-500 bg-ember-500/15 flex justify-between items-center text-xs sm:text-sm">
+                  <span class="font-medium text-white">Hand-Tossed Olive Oil</span>
+                  <span class="text-emerald-300 font-semibold">Included</span>
+                </button>
+                <button type="button" data-crust="Crispy Thin Herb Crust" data-crust-price="100" class="studio-crust-btn w-full p-3 rounded-xl border border-white/10 bg-obsidian-900/80 flex justify-between items-center text-xs sm:text-sm">
+                  <span class="font-medium text-stone-200">Crispy Garlic Herb Thin</span>
+                  <span class="text-gold-400 font-semibold">+LKR 100</span>
+                </button>
+                <button type="button" data-crust="Molten Double Cheese Burst" data-crust-price="350" class="studio-crust-btn w-full p-3 rounded-xl border border-white/10 bg-obsidian-900/80 flex justify-between items-center text-xs sm:text-sm">
+                  <span class="font-medium text-stone-200">🧀 Molten Cheese Burst</span>
+                  <span class="text-gold-400 font-semibold">+LKR 350</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="gsap-scroll-depth card-cinematic rounded-3xl p-6">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-amber-300 mb-4">3. Sri Lankan Spice Profile</h3>
+              <div class="space-y-2.5">
+                <button type="button" data-spice="Mild Italian Herb" class="studio-spice-btn w-full p-3 rounded-xl border border-white/10 bg-obsidian-900/80 flex justify-between items-center text-xs sm:text-sm">
+                  <span class="font-medium text-stone-200">🌿 Mild Italian Herb &amp; Garlic</span>
+                  <span class="text-stone-400">Kid Friendly</span>
+                </button>
+                <button type="button" data-spice="🌶️ Galle Devilled Kick" class="studio-spice-btn w-full p-3 rounded-xl border-2 border-ember-500 bg-ember-500/15 flex justify-between items-center text-xs sm:text-sm">
+                  <span class="font-medium text-white">🌶️ Galle Devilled Sweet-Heat</span>
+                  <span class="text-amber-300 font-semibold">Signature</span>
+                </button>
+                <button type="button" data-spice="🔥 Fiery Nai Miris Overload" class="studio-spice-btn w-full p-3 rounded-xl border border-white/10 bg-obsidian-900/80 flex justify-between items-center text-xs sm:text-sm">
+                  <span class="font-medium text-stone-200">🔥 Fiery Nai Miris &amp; Green Chilli</span>
+                  <span class="text-ember-400 font-semibold">Extra Hot</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Toppings Selection -->
+          <div class="gsap-scroll-depth card-cinematic rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-amber-300">4. Load Your Toppings</h3>
+              <span class="text-xs text-stone-400">Click to toggle toppings</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <button type="button" data-topping="Devilled Chicken" data-top-price="200" class="studio-top-btn active p-3 rounded-xl border-2 border-ember-500 bg-ember-500/15 text-left text-xs transition">
+                <div class="font-semibold text-white">🍗 Devilled Chicken</div>
+                <div class="text-gold-400 mt-0.5">+LKR 200</div>
+              </button>
+              <button type="button" data-topping="Tandoori Chicken" data-top-price="200" class="studio-top-btn p-3 rounded-xl border border-white/10 bg-obsidian-900/80 text-left text-xs transition">
+                <div class="font-semibold text-stone-200">🔥 Tandoori Chicken</div>
+                <div class="text-gold-400 mt-0.5">+LKR 200</div>
+              </button>
+              <button type="button" data-topping="Ocean Prawns &amp; Cuttlefish" data-top-price="320" class="studio-top-btn p-3 rounded-xl border border-white/10 bg-obsidian-900/80 text-left text-xs transition">
+                <div class="font-semibold text-stone-200">🦐 Prawns &amp; Cuttlefish</div>
+                <div class="text-gold-400 mt-0.5">+LKR 320</div>
+              </button>
+              <button type="button" data-topping="Chicken Salami &amp; Sausage" data-top-price="180" class="studio-top-btn p-3 rounded-xl border border-white/10 bg-obsidian-900/80 text-left text-xs transition">
+                <div class="font-semibold text-stone-200">🍕 Salami &amp; Sausage</div>
+                <div class="text-gold-400 mt-0.5">+LKR 180</div>
+              </button>
+              <button type="button" data-topping="Extra Mozzarella Cheese" data-top-price="250" class="studio-top-btn p-3 rounded-xl border border-white/10 bg-obsidian-900/80 text-left text-xs transition">
+                <div class="font-semibold text-stone-200">🧀 Extra Mozzarella</div>
+                <div class="text-gold-400 mt-0.5">+LKR 250</div>
+              </button>
+              <button type="button" data-topping="Black Olives &amp; Mushroom" data-top-price="150" class="studio-top-btn p-3 rounded-xl border border-white/10 bg-obsidian-900/80 text-left text-xs transition">
+                <div class="font-semibold text-stone-200">🫒 Olives &amp; Mushroom</div>
+                <div class="text-gold-400 mt-0.5">+LKR 150</div>
+              </button>
+              <button type="button" data-topping="Sweet Pineapple" data-top-price="120" class="studio-top-btn p-3 rounded-xl border border-white/10 bg-obsidian-900/80 text-left text-xs transition">
+                <div class="font-semibold text-stone-200">🍍 Hawaiian Pineapple</div>
+                <div class="text-gold-400 mt-0.5">+LKR 120</div>
+              </button>
+              <button type="button" data-topping="Fiery Nai Miris &amp; Capsicum" data-top-price="100" class="studio-top-btn p-3 rounded-xl border border-white/10 bg-obsidian-900/80 text-left text-xs transition">
+                <div class="font-semibold text-stone-200">🌶️ Fresh Nai Miris</div>
+                <div class="text-gold-400 mt-0.5">+LKR 100</div>
+              </button>
+              <button type="button" data-topping="Caramelized Onion &amp; Corn" data-top-price="0" class="studio-top-btn active p-3 rounded-xl border-2 border-ember-500 bg-ember-500/15 text-left text-xs transition">
+                <div class="font-semibold text-white">🧅 Onion &amp; Bell Pepper</div>
+                <div class="text-emerald-300 mt-0.5">Free Base</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GARDEN & INDOOR AMBIENCE + CELEBRATION SHOWCASE (WITH 3D DEPTH & PARALLAX) -->
+  <section id="ambienceSection" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 perspective-stage">
+    <div class="grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-6 space-y-6">
+        <span class="text-xs font-bold uppercase tracking-widest text-ember-400 block">Kahaduwawattha • Baddegama Road • Galle</span>
+        <h2 class="gsap-split-heading font-serif text-3xl sm:text-5xl font-bold text-white leading-tight">
+          PEACEFUL GARDEN &amp; <span class="italic font-normal text-[#f04e23]">COZY VIBE.</span>
+        </h2>
+        <p class="gsap-fade-up text-stone-300 text-sm sm:text-base leading-relaxed">
+          At Heavenly Pizza, we believe a great meal is about more than what's on your plate. It's about relaxing with your family under warm garden string lights, meeting friends over bubbling cheesy lasagna, and celebrating life's special milestones — from birthday dinners to intimate <em>Bride-to-Be</em> gatherings.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-4 pt-2">
+          <div class="gsap-scroll-depth card-cinematic rounded-2xl p-4">
+            <div class="text-lg font-bold text-amber-300 mb-1">🌿 Starlit Garden Patio</div>
+            <p class="text-xs text-stone-400">Lush tropical greenery, evening breeze, and ambient lighting ideal for groups and couples.</p>
+          </div>
+          <div class="gsap-scroll-depth card-cinematic rounded-2xl p-4">
+            <div class="text-lg font-bold text-ember-400 mb-1">🥂 Celebration Packages</div>
+            <p class="text-xs text-stone-400">Custom table setups for Bridal Showers ("Bride to Be"), birthdays, and family reunions.</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 pt-2 text-xs sm:text-sm">
+          <div class="flex items-center gap-2 text-stone-300">
+            <span class="text-emerald-400">✔</span> Free Parking Lot &amp; Street Parking
+          </div>
+          <div class="flex items-center gap-2 text-stone-300">
+            <span class="text-emerald-400">✔</span> Credit, Debit &amp; NFC Mobile Payments
+          </div>
+          <div class="flex items-center gap-2 text-stone-300">
+            <span class="text-emerald-400">✔</span> Table Service &amp; Kid-Friendly
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6">
+        <div class="depth-card-3d gsap-scroll-depth relative rounded-3xl overflow-hidden border border-white/15 shadow-2xl group p-3 card-cinematic">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <div class="depth-layer-img relative rounded-2xl overflow-hidden h-80 sm:h-96">
+            <img src="assets/garden-ambience.jpg" alt="Heavenly Pizza Garden and Indoor Dining Ambience" class="gsap-parallax-img w-full h-full object-cover scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent"></div>
+          </div>
+          <div class="depth-layer-front absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4 z-20">
+            <div class="bg-obsidian-950/90 backdrop-blur-md border border-white/15 rounded-2xl p-4 max-w-md shadow-2xl">
+              <span class="text-[11px] uppercase tracking-wider text-gold-400 font-semibold block">Featured Community Moment</span>
+              <p class="text-xs sm:text-sm text-white font-medium mt-0.5">"Story of a happy customer 😇 — Bride to Be Celebration with Stories with Dandelions"</p>
+            </div>
+            <a href="https://maps.app.goo.gl/kq4AhGKhzCb9FAmH7?g_st=ic" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-ember-500 hover:bg-ember-600 text-white text-xs font-semibold shadow-lg transition">
+              📍 Get Directions
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERIFIED CUSTOMER REVIEWS & COMMUNITY WALL -->
+  <section id="reviewsSection" class="py-16 bg-obsidian-900/60 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-400 block mb-2">10,000+ Followers • 4.4★ Verified Rating</span>
+        <h2 class="gsap-split-heading font-serif text-3xl sm:text-5xl font-bold text-white">
+          VOICES OF <span class="italic font-normal text-[#f04e23]">GALLE LOVERS.</span>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 perspective-stage">
+        <div class="depth-card-3d gsap-scroll-depth card-cinematic rounded-3xl p-6 flex flex-col justify-between">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <div class="depth-layer-mid">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-gold-400 text-sm">★★★★★</div>
+              <span class="text-[11px] text-stone-400 px-2.5 py-0.5 rounded-full bg-white/5">Google Review • June 2026</span>
+            </div>
+            <p class="text-stone-200 text-sm italic leading-relaxed">
+              "Visited Heavenly Pizza and honestly loved every bite 🍕✨ The pizza was fresh, cheesy, and packed with flavor."
+            </p>
+          </div>
+          <div class="depth-layer-front mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-stone-400">
+            <span class="font-semibold text-white">Dine-In Guest</span>
+            <span class="text-emerald-400">✔ Verified Visit</span>
+          </div>
+        </div>
+
+        <div class="depth-card-3d gsap-scroll-depth card-cinematic rounded-3xl p-6 flex flex-col justify-between">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <div class="depth-layer-mid">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-gold-400 text-sm">★★★★★</div>
+              <span class="text-[11px] text-stone-400 px-2.5 py-0.5 rounded-full bg-white/5">Google Review • May 2026</span>
+            </div>
+            <p class="text-stone-200 text-sm italic leading-relaxed">
+              "I ordered from Heavenly Pizza Galle through PickMe, and it was amazing! The pizza tasted amazing and the drinks were perfect."
+            </p>
+          </div>
+          <div class="depth-layer-front mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-stone-400">
+            <span class="font-semibold text-white">Galle Delivery Customer</span>
+            <span class="text-emerald-400">✔ Verified Order</span>
+          </div>
+        </div>
+
+        <div class="depth-card-3d gsap-scroll-depth card-cinematic rounded-3xl p-6 flex flex-col justify-between">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <div class="depth-layer-mid">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-gold-400 text-sm">★★★★★</div>
+              <span class="text-[11px] text-stone-400 px-2.5 py-0.5 rounded-full bg-white/5">Google Review • April 2026</span>
+            </div>
+            <p class="text-stone-200 text-sm italic leading-relaxed">
+              "Delicious pizza, good service, and nice atmosphere. Perfect spot in Kahaduwawattha for family dinner and crispy chicken."
+            </p>
+          </div>
+          <div class="depth-layer-front mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-stone-400">
+            <span class="font-semibold text-white">Local Guide • Galle</span>
+            <span class="text-emerald-400">✔ Verified Visit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE TABLE RESERVATION & CELEBRATION PLANNER + LOCATION HUB -->
+  <section id="reservationSection" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-10">
+      <!-- Left: Interactive Reservation Form -->
+      <div class="lg:col-span-7 gsap-scroll-depth card-cinematic rounded-3xl p-6 sm:p-8">
+        <span class="text-xs font-bold uppercase tracking-widest text-ember-400 block mb-1">Instant WhatsApp Concierge</span>
+        <h2 class="gsap-split-heading font-serif text-2xl sm:text-4xl font-bold text-white mb-2">
+          RESERVE A TABLE OR <span class="italic font-normal text-[#f04e23]">CELEBRATION.</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-stone-400 mb-6">
+          Book our peaceful garden patio or cozy indoor lounge for family dinners, birthdays, or bridal showers.
+        </p>
+
+        <form id="reservationForm" class="space-y-4">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="resName" class="block text-xs font-medium text-stone-300 mb-1">Your Name *</label>
+              <input id="resName" type="text" required placeholder="e.g. Kasun Perera" class="w-full px-4 py-2.5 rounded-xl bg-obsidian-900 border border-white/15 text-sm text-white focus:outline-none focus:border-ember-500" />
+            </div>
+            <div>
+              <label for="resPhone" class="block text-xs font-medium text-stone-300 mb-1">Phone / WhatsApp Number *</label>
+              <input id="resPhone" type="tel" required placeholder="e.g. 071 234 5678" class="w-full px-4 py-2.5 rounded-xl bg-obsidian-900 border border-white/15 text-sm text-white focus:outline-none focus:border-ember-500" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label for="resDate" class="block text-xs font-medium text-stone-300 mb-1">Preferred Date *</label>
+              <input id="resDate" type="date" required class="w-full px-4 py-2.5 rounded-xl bg-obsidian-900 border border-white/15 text-sm text-white focus:outline-none focus:border-ember-500" />
+            </div>
+            <div>
+              <label for="resTime" class="block text-xs font-medium text-stone-300 mb-1">Time (1:00 PM – 9:00 PM)</label>
+              <select id="resTime" class="w-full px-4 py-2.5 rounded-xl bg-obsidian-900 border border-white/15 text-sm text-white focus:outline-none focus:border-ember-500">
+                <option value="1:30 PM">1:30 PM (Lunch)</option>
+                <option value="3:00 PM">3:00 PM (Afternoon)</option>
+                <option value="5:30 PM">5:30 PM (Sunset Garden)</option>
+                <option value="7:00 PM" selected>7:00 PM (Prime Dinner)</option>
+                <option value="8:15 PM">8:15 PM (Late Dinner)</option>
+              </select>
+            </div>
+            <div>
+              <label for="resGuests" class="block text-xs font-medium text-stone-300 mb-1">Number of Guests</label>
+              <select id="resGuests" class="w-full px-4 py-2.5 rounded-xl bg-obsidian-900 border border-white/15 text-sm text-white focus:outline-none focus:border-ember-500">
+                <option value="2 Guests">2 Guests (Couple)</option>
+                <option value="4 Guests" selected>4 Guests (Family/Friends)</option>
+                <option value="6-8 Guests">6–8 Guests (Group Table)</option>
+                <option value="10+ Celebration Party">10+ Guests (Celebration Event)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="resSeating" class="block text-xs font-medium text-stone-300 mb-1">Seating Preference</label>
+              <select id="resSeating" class="w-full px-4 py-2.5 rounded-xl bg-obsidian-900 border border-white/15 text-sm text-white focus:outline-none focus:border-ember-500">
+                <option value="🌿 Peaceful Garden Seating">🌿 Peaceful Outdoor Garden</option>
+                <option value="🏠 Cozy Indoor Dining">🏠 Cozy Indoor Dining Area</option>
+                <option value="✨ Best Available Table">✨ Best Available Table</option>
+              </select>
+            </div>
+            <div>
+              <label for="resOccasion" class="block text-xs font-medium text-stone-300 mb-1">Special Occasion</label>
+              <select id="resOccasion" class="w-full px-4 py-2.5 rounded-xl bg-obsidian-900 border border-white/15 text-sm text-white focus:outline-none focus:border-ember-500">
+                <option value="Casual Dining">Casual Family / Friends Meal</option>
+                <option value="Birthday Celebration">🎂 Birthday Celebration</option>
+                <option value="Bride-to-Be / Bridal Shower">👰 Bride-to-Be / Party Decor</option>
+                <option value="Anniversary / Date Night">🥂 Date Night / Anniversary</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="resNotes" class="block text-xs font-medium text-stone-300 mb-1">Special Requests or Pre-Order Notes</label>
+            <input id="resNotes" type="text" placeholder="e.g. Cake table setup, extra cheesy lasagna pre-order..." class="w-full px-4 py-2.5 rounded-xl bg-obsidian-900 border border-white/15 text-sm text-white focus:outline-none focus:border-ember-500" />
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-ember-500 to-amber-600 hover:from-ember-600 hover:to-amber-500 text-white font-bold text-sm shadow-xl ember-glow transition">
+            ✨ Confirm Booking Request &amp; Generate Pass
+          </button>
+        </form>
+      </div>
+
+      <!-- Right: Direct Contact, Hours & Location Card -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="gsap-scroll-depth card-cinematic rounded-3xl p-6 sm:p-8 space-y-5">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif text-2xl font-bold text-white">VISIT HEAVENLY PIZZA</h3>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold">Open Every Day</span>
+          </div>
+
+          <div class="space-y-4 text-sm">
+            <div class="flex items-start gap-3.5">
+              <span class="text-lg">📍</span>
+              <div>
+                <div class="font-semibold text-white">Galle Flagship Location</div>
+                <div class="text-stone-400 text-xs mt-0.5">
+                  Heavenly Pizza, Baddegama Road, Kahaduwawattha (Kithulampitiya Rd), Galle, Sri Lanka 80000
+                </div>
+                <a href="https://maps.app.goo.gl/kq4AhGKhzCb9FAmH7?g_st=ic" target="_blank" rel="noopener noreferrer" class="inline-block mt-1.5 text-xs text-ember-400 hover:text-amber-300 font-semibold underline">
+                  Open in Google Maps →
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="text-lg">🕒</span>
+              <div>
+                <div class="font-semibold text-white">Opening Hours</div>
+                <div class="text-stone-400 text-xs mt-0.5">Monday – Sunday: 1:00 PM – 9:30 PM</div>
+                <div class="text-amber-300/90 text-xs">Uber Eats &amp; PickMe Delivery from 12:30 PM</div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="text-lg">📞</span>
+              <div>
+                <div class="font-semibold text-white">Direct Hotline &amp; WhatsApp</div>
+                <div class="text-stone-300 text-xs mt-0.5">071 111 8989 / +94 71 111 8989</div>
+                <div class="text-stone-400 text-xs">Email: info@heavenlypizza.lk • Web: heavenlypizza.lk</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/10 grid grid-cols-2 gap-3">
+            <a href="https://wa.me/94711118989" target="_blank" rel="noopener noreferrer" class="py-3 px-4 rounded-xl bg-emerald-600/90 hover:bg-emerald-600 text-white font-semibold text-xs text-center transition">
+              💬 WhatsApp Us
+            </a>
+            <a href="https://www.ubereats.com/lk/store/heavenly-pizza-galle/SV1DJ9IwXcyz1lMebHDKxA" target="_blank" rel="noopener noreferrer" class="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-amber-200 font-semibold text-xs text-center transition border border-white/10">
+              🛵 Order on Uber Eats
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFESSIONAL ANIMATED CINEMATIC FOOTER -->
+  <footer id="siteFooter" class="relative bg-[#050404] border-t border-white/10 pt-16 pb-10 overflow-hidden text-stone-400">
+    <!-- Animated Ambient Ember Glow Orbs & Shimmer Line -->
+    <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-ember-500 to-transparent opacity-80"></div>
+    <div class="footer-glow-orb absolute -top-32 -left-24 w-96 h-96 rounded-full bg-ember-500/10 blur-3xl pointer-events-none"></div>
+    <div class="footer-glow-orb absolute -bottom-32 -right-24 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+
+    <!-- Scrolling Marquee Ticker Ribbon -->
+    <div class="border-b border-white/10 pb-8 mb-12 overflow-hidden select-none">
+      <div id="footerMarqueeTrack" class="flex items-center gap-10 whitespace-nowrap text-xs sm:text-sm font-serif italic tracking-[0.2em] uppercase text-stone-400/80">
+        <span>🍕 A LITTLE SLICE OF HEAVEN IN GALLE</span>
+        <span class="text-ember-500">✦</span>
+        <span>🔥 HAND-TOSSED WOOD-FIRED FLAVOURS</span>
+        <span class="text-ember-500">✦</span>
+        <span>🌿 PEACEFUL STARLIT GARDEN DINING</span>
+        <span class="text-ember-500">✦</span>
+        <span>🛵 DIRECT WHATSAPP, UBER EATS &amp; PICKME DELIVERY</span>
+        <span class="text-ember-500">✦</span>
+        <span>🍕 A LITTLE SLICE OF HEAVEN IN GALLE</span>
+        <span class="text-ember-500">✦</span>
+        <span>🔥 HAND-TOSSED WOOD-FIRED FLAVOURS</span>
+        <span class="text-ember-500">✦</span>
+        <span>🌿 PEACEFUL STARLIT GARDEN DINING</span>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <!-- Top CTA Banner inside Footer -->
+      <div class="gsap-footer-reveal card-cinematic rounded-3xl p-6 sm:p-10 mb-14 border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div class="space-y-2 max-w-xl">
+          <div class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-ember-400">
+            <span class="w-2 h-2 rounded-full bg-ember-500 animate-ping"></span>
+            <span>Craving Something Heavenly Tonight?</span>
+          </div>
+          <h3 class="font-serif text-2xl sm:text-4xl font-bold text-white leading-tight">
+            Fresh out of our Galle oven — <em class="italic font-normal text-[#f04e23]">straight to your table.</em>
+          </h3>
+        </div>
+        <div class="flex flex-wrap items-center gap-3.5 w-full lg:w-auto">
+          <a href="#menuSection" class="px-6 py-3.5 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white font-bold text-xs tracking-[0.15em] uppercase shadow-lg ember-glow transition flex items-center gap-2">
+            <span>Order Online Now</span>
+            <span>↗</span>
+          </a>
+          <a href="https://wa.me/94711118989" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/15 text-white font-bold text-xs tracking-[0.14em] uppercase transition flex items-center gap-2">
+            <span>💬 WhatsApp 071 111 8989</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4-Column Professional Footer Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+        <!-- Col 1: Brand Story & Official Emblem (4 cols) -->
+        <div class="lg:col-span-4 space-y-4 gsap-footer-reveal">
+          <a href="#heroSection" class="inline-flex items-center gap-3.5 group">
+            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-ember-500 shadow-lg ember-glow group-hover:scale-105 transition">
+              <img src="assets/heavenly-logo.jpg" alt="Heavenly Pizza Official Logo" class="w-full h-full object-cover" />
+            </div>
+            <div>
+              <span class="block font-serif font-extrabold text-xl tracking-wider text-white">HEAVENLY</span>
+              <span class="block text-xs text-stone-400 font-serif italic">pizza · galle, sri lanka</span>
+            </div>
+          </a>
+          <p class="text-xs sm:text-sm text-stone-400 leading-relaxed pr-2">
+            Crafting Galle's favourite artisanal wood-fired style pizzas, bubbling baked lasagna, crispy golden chicken burgers, and chilled boba drinks in a cozy starlit garden setting.
+          </p>
+          <div class="flex items-center gap-3 pt-1">
+            <a href="https://maps.app.goo.gl/kq4AhGKhzCb9FAmH7?g_st=ic" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-ember-500/20 border border-white/10 hover:border-ember-500/50 text-xs text-stone-200 font-medium transition">
+              📍 Google Maps (4.4★)
+            </a>
+            <a href="https://www.ubereats.com/lk/store/heavenly-pizza-galle/SV1DJ9IwXcyz1lMebHDKxA" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-ember-500/20 border border-white/10 hover:border-ember-500/50 text-xs text-stone-200 font-medium transition">
+              🛵 Uber Eats
+            </a>
+            <a href="https://wa.me/94711118989" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-500/50 text-xs text-stone-200 font-medium transition">
+              💬 WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Navigation (2 cols) -->
+        <div class="lg:col-span-2 space-y-3 gsap-footer-reveal">
+          <h4 class="text-xs font-extrabold uppercase tracking-[0.2em] text-white">Explore</h4>
+          <ul class="space-y-2.5 text-xs sm:text-sm">
+            <li><a href="#heroSection" class="hover:text-ember-400 transition flex items-center gap-1.5"><span>→</span><span>Home Cinema</span></a></li>
+            <li><a href="#signatureShowcaseSection" class="hover:text-ember-400 transition flex items-center gap-1.5"><span>→</span><span>Chef's Spotlight</span></a></li>
+            <li><a href="#menuSection" class="hover:text-ember-400 transition flex items-center gap-1.5"><span>→</span><span>Full Menu (27)</span></a></li>
+            <li><a href="#customizerSection" class="hover:text-ember-400 transition flex items-center gap-1.5"><span>→</span><span>Slice Studio</span></a></li>
+            <li><a href="#ambienceSection" class="hover:text-ember-400 transition flex items-center gap-1.5"><span>→</span><span>Garden Vibe</span></a></li>
+            <li><a href="#reservationSection" class="hover:text-ember-400 transition flex items-center gap-1.5"><span>→</span><span>Book a Table</span></a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Signature Cravings (3 cols) -->
+        <div class="lg:col-span-3 space-y-3 gsap-footer-reveal">
+          <h4 class="text-xs font-extrabold uppercase tracking-[0.2em] text-white">Galle Signatures</h4>
+          <ul class="space-y-2.5 text-xs sm:text-sm text-stone-400">
+            <li class="flex items-center justify-between border-b border-white/5 pb-1.5">
+              <span class="text-stone-200">👑 Heavenly Mix Supreme</span>
+              <span class="text-gold-400 font-semibold">LKR 2,100</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-white/5 pb-1.5">
+              <span class="text-stone-200">🦐 Seafood Supreme Pizza</span>
+              <span class="text-gold-400 font-semibold">LKR 1,900</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-white/5 pb-1.5">
+              <span class="text-stone-200">🌶️ Devilled &amp; Nai Miris</span>
+              <span class="text-gold-400 font-semibold">LKR 1,750</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-white/5 pb-1.5">
+              <span class="text-stone-200">🧀 Baked Chicken Lasagna</span>
+              <span class="text-gold-400 font-semibold">LKR 1,450</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span class="text-stone-200">🍔 Crispy Chicken Burger</span>
+              <span class="text-gold-400 font-semibold">LKR 680</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Visit & Hours + VIP Club (3 cols) -->
+        <div class="lg:col-span-3 space-y-4 gsap-footer-reveal">
+          <h4 class="text-xs font-extrabold uppercase tracking-[0.2em] text-white">Visit Flagship</h4>
+          <div class="space-y-2 text-xs leading-relaxed">
+            <p class="text-stone-300 font-medium">Baddegama Road, Kahaduwawattha (Kithulampitiya Rd), Galle 80000</p>
+            <p class="text-emerald-400 font-semibold">🕒 Open Daily: 1:00 PM – 9:30 PM</p>
+            <p class="text-stone-300">📞 Hotline: <a href="tel:+94711118989" class="text-amber-300 hover:underline font-semibold">071 111 8989</a></p>
+            <p class="text-stone-400">✉️ <a href="mailto:info@heavenlypizza.lk" class="hover:text-white transition">info@heavenlypizza.lk</a></p>
+          </div>
+
+          <!-- Interactive VIP Slice Club Mini Form -->
+          <form id="footerVipForm" class="pt-1 space-y-2">
+            <label for="footerVipInput" class="block text-[11px] uppercase tracking-wider text-amber-300 font-semibold">🎁 Join Galle Slice VIP Deals</label>
+            <div class="flex gap-1.5">
+              <input id="footerVipInput" type="text" required placeholder="WhatsApp # or Email" class="w-full px-3 py-2 rounded-xl bg-obsidian-900 border border-white/15 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-ember-500" />
+              <button type="submit" class="px-3.5 py-2 rounded-xl bg-ember-500 hover:bg-ember-600 text-white font-bold text-xs transition shrink-0">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Giant Kinetic Watermark Wordmark + Bottom Copyright Bar -->
+      <div class="pt-10 flex flex-col items-center">
+        <div id="footerBigWordmark" class="font-serif font-extrabold text-[13vw] sm:text-[9.5vw] leading-none tracking-tighter select-none bg-gradient-to-b from-white/12 via-white/5 to-transparent bg-clip-text text-transparent text-center pointer-events-none">
+          HEAVENLY PIZZA
+        </div>
+
+        <div class="w-full flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/5 text-xs text-stone-500">
+          <p>© 2026 Heavenly Pizza Galle. All rights reserved. Crafted with passion in Southern Sri Lanka.</p>
+          <div class="flex items-center gap-6">
+            <a href="https://maps.app.goo.gl/kq4AhGKhzCb9FAmH7?g_st=ic" target="_blank" rel="noopener noreferrer" class="hover:text-stone-300 transition">Directions</a>
+            <a href="#menuSection" class="hover:text-stone-300 transition">Privacy &amp; Terms</a>
+            <a href="#heroSection" class="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-ember-500 text-stone-200 hover:text-white font-semibold transition flex items-center gap-1">
+              <span>Back to Top</span>
+              <span>↑</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SLIDE-OVER ORDER CART & WHATSAPP CHECKOUT DRAWER -->
+  <div id="cartDrawerBackdrop" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden flex justify-end">
+    <div class="w-full max-w-md bg-obsidian-900 border-l border-white/15 h-full flex flex-col justify-between p-6 overflow-y-auto">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-white/10">
+          <div>
+            <h3 class="font-serif text-lg font-bold text-white">YOUR HEAVENLY ORDER</h3>
+            <p class="text-xs text-stone-400">Freshly prepared to order in Galle</p>
+          </div>
+          <button id="closeCartBtn" type="button" class="p-2 rounded-full bg-white/5 hover:bg-white/10 text-stone-300">✕</button>
+        </div>
+
+        <!-- Order Mode Selector -->
+        <div class="grid grid-cols-3 gap-2 my-4 bg-obsidian-950 p-1.5 rounded-xl border border-white/10 text-xs">
+          <button type="button" data-mode="Dine-In" class="order-mode-btn py-2 rounded-lg font-semibold bg-ember-500 text-white">🍽️ Dine-In</button>
+          <button type="button" data-mode="Takeaway" class="order-mode-btn py-2 rounded-lg font-semibold text-stone-400 hover:text-white">🥡 Takeaway</button>
+          <button type="button" data-mode="Delivery" class="order-mode-btn py-2 rounded-lg font-semibold text-stone-400 hover:text-white">🛵 Delivery</button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cartItemsContainer" class="space-y-3 my-4 max-h-72 overflow-y-auto pr-1"></div>
+      </div>
+
+      <!-- Checkout Footer -->
+      <div class="pt-4 border-t border-white/10 space-y-4">
+        <div class="space-y-2">
+          <input id="checkoutCustomerName" type="text" placeholder="Your Name (optional)" class="w-full px-3.5 py-2 rounded-xl bg-obsidian-950 border border-white/10 text-xs text-white" />
+          <input id="checkoutCustomerNote" type="text" placeholder="Delivery Address in Galle / Table or Spice Note" class="w-full px-3.5 py-2 rounded-xl bg-obsidian-950 border border-white/10 text-xs text-white" />
+        </div>
+
+        <div class="space-y-1 text-xs">
+          <div class="flex justify-between text-stone-400">
+            <span>Subtotal</span>
+            <span id="cartSubtotalText">LKR 0</span>
+          </div>
+          <div class="flex justify-between text-base font-bold text-white pt-1">
+            <span>Total Estimate</span>
+            <span id="cartTotalText" class="text-gold-400">LKR 0</span>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <button id="sendWhatsAppOrderBtn" type="button" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-xs sm:text-sm shadow-lg transition flex items-center justify-center gap-2">
+            <span>💬 Place Order via WhatsApp (071 111 8989)</span>
+          </button>
+          <button id="clearCartBtn" type="button" class="w-full py-2 rounded-xl bg-white/5 hover:bg-white/10 text-stone-400 text-xs transition">
+            Clear Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL FOR RECEIPT / TABLE RESERVATION PASS -->
+  <div id="confirmationModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="card-cinematic rounded-3xl max-w-md w-full p-6 border border-amber-500/40 space-y-4">
+      <div class="flex items-center justify-between">
+        <span id="modalBadge" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold">✔ Ready for Heavenly Pizza</span>
+        <button id="closeModalBtn" type="button" class="text-stone-400 hover:text-white">✕</button>
+      </div>
+      <h3 id="modalTitle" class="font-serif text-xl font-bold text-white">Order Summary</h3>
+      <pre id="modalSummaryBox" class="bg-obsidian-950 p-4 rounded-2xl border border-white/10 text-xs text-amber-100 whitespace-pre-wrap font-mono leading-relaxed max-h-60 overflow-y-auto"></pre>
+      <div class="flex gap-3">
+        <a id="modalWhatsAppLink" href="https://wa.me/94711118989" target="_blank" rel="noopener noreferrer" class="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs text-center transition">
+          💬 Open WhatsApp (+94 71 111 8989)
+        </a>
+        <button id="copySummaryBtn" type="button" class="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs transition">
+          📋 Copy Text
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastBanner" class="fixed bottom-5 right-5 z-50 hidden px-4 py-3 rounded-2xl bg-obsidian-900 border border-ember-500 text-white text-xs font-semibold shadow-2xl ember-glow">
+    Added to your Heavenly Order! 🍕
+  </div>
+
+  <script>
+    // Complete Verified Menu Data from Google Maps & Uber Eats (Galle)
+    const IMG_HERO_PIZZA = "assets/heavenly-mix-pizza.jpg";
+    const IMG_DEVILLED_PIZZA = "assets/devilled-pizza.jpg";
+    const IMG_CRISPY_BURGER = "assets/crispy-chicken-burger.jpg";
+    const IMG_PASTA_LASAGNA = "assets/baked-lasagna.jpg";
+    const IMG_DRINKS_BOBA = "assets/boba-drinks.jpg";
+
+    const MENU_ITEMS = [
+      // Premium & Supreme Pizzas
+      {
+        id: "heavenly-mix",
+        name: "Heavenly Mix Pizza",
+        category: "premium-supreme",
+        tier: "Premium Signature",
+        price: 2100,
+        desc: "Spicy chicken, ocean prawns, cuttlefish, tuna, chicken sausage, black olives, bell pepper, onion & melted mozzarella cheese.",
+        tags: ["popular", "seafood", "spicy"],
+        badge: "👑 #1 Bestseller",
+        img: IMG_HERO_PIZZA
+      },
+      {
+        id: "seafood-pizza",
+        name: "Seafood Supreme Pizza",
+        category: "premium-supreme",
+        tier: "Premium Pizza",
+        price: 1900,
+        desc: "Fresh Southern coast cuttlefish, prawns, tuna, mozzarella cheese, crisp bell pepper, onion, and extra virgin olive oil.",
+        tags: ["seafood", "popular"],
+        badge: "🦐 Coastal Favorite",
+        img: IMG_DEVILLED_PIZZA
+      },
+      {
+        id: "devilled-supreme",
+        name: "Devilled Chicken Supreme Pizza",
+        category: "premium-supreme",
+        tier: "Supreme Pizza",
+        price: 1750,
+        desc: "Signature Sri Lankan devilled chicken tossed in sweet-spicy chili glaze, capsicum, onion, mozzarella cheese & olive oil.",
+        tags: ["popular", "spicy"],
+        badge: "🌶️ Galle Favorite",
+        img: IMG_DEVILLED_PIZZA
+      },
+      {
+        id: "hot-spicy-supreme",
+        name: "Hot & Spicy Nai Miris Supreme",
+        category: "premium-supreme",
+        tier: "Supreme Pizza",
+        price: 1750,
+        desc: "Fiery spicy chicken, aromatic Sri Lankan nai miris (scotch bonnet), green chilli, bell pepper, mozzarella & olive oil.",
+        tags: ["spicy", "popular"],
+        badge: "🔥 Nai Miris Heat",
+        img: IMG_DEVILLED_PIZZA
+      },
+      {
+        id: "hawaiian-supreme",
+        name: "Hawaiian Supreme Pizza",
+        category: "premium-supreme",
+        tier: "Supreme Pizza",
+        price: 1700,
+        desc: "Savory chicken ham, caramelized tropical pineapple chunks, stretchy mozzarella cheese, onion & olive oil.",
+        tags: ["popular"],
+        badge: "🍍 Sweet & Savory",
+        img: IMG_HERO_PIZZA
+      },
+      {
+        id: "double-chicken-supreme",
+        name: "Double Chicken Supreme Pizza",
+        category: "premium-supreme",
+        tier: "Supreme Pizza",
+        price: 1400,
+        desc: "Loaded with spicy roasted chicken, savory chicken sausages, onion, bell pepper, mozzarella cheese & olive oil.",
+        tags: ["popular", "spicy"],
+        badge: "🍗 Double Protein",
+        img: IMG_HERO_PIZZA
+      },
+      {
+        id: "twin-meat-supreme",
+        name: "Twin Meat Delight Supreme",
+        category: "premium-supreme",
+        tier: "Supreme Pizza",
+        price: 1360,
+        desc: "Smoky chicken salami, juicy chicken sausages, crisp bell pepper, onion, mozzarella cheese & olive oil.",
+        tags: ["popular"],
+        badge: "🥩 Meat Lovers",
+        img: IMG_HERO_PIZZA
+      },
+
+      // Deluxe & Classic Pizzas
+      {
+        id: "tandoori-deluxe",
+        name: "Tandoori Chicken Deluxe Pizza",
+        category: "deluxe-classic",
+        tier: "Deluxe Pizza",
+        price: 1216,
+        desc: "Char-spiced tandoori chicken, fresh ginger, roasted garlic, bell pepper, onion, mozzarella cheese & olive oil.",
+        tags: ["popular", "spicy", "budget"],
+        badge: "🔥 Smoky Tandoor",
+        img: IMG_DEVILLED_PIZZA
+      },
+      {
+        id: "butter-chicken-deluxe",
+        name: "Butter Chicken Deluxe Pizza",
+        category: "deluxe-classic",
+        tier: "Deluxe Pizza",
+        price: 1216,
+        desc: "Velvety butter chicken masala, aromatic ginger & garlic, caramelized onion, mozzarella cheese & olive oil.",
+        tags: ["popular", "budget"],
+        badge: "🧈 Creamy Rich",
+        img: IMG_HERO_PIZZA
+      },
+      {
+        id: "spicy-chicken-deluxe",
+        name: "Spicy Chicken Deluxe Pizza",
+        category: "deluxe-classic",
+        tier: "Deluxe Pizza",
+        price: 1216,
+        desc: "Spiced chicken breast, sliced green chilli, red onion, bubbling mozzarella cheese & olive oil.",
+        tags: ["spicy", "budget"],
+        badge: "🌶️ Classic Heat",
+        img: IMG_DEVILLED_PIZZA
+      },
+      {
+        id: "heavenly-fresh-veg",
+        name: "Heavenly Fresh Vegetarian Pizza",
+        category: "deluxe-classic",
+        tier: "Deluxe Vegetarian",
+        price: 1216,
+        desc: "Garden mushroom, crisp capsicum, sweet corn, vine tomato, bell pepper, onion, mozzarella cheese & olive oil.",
+        tags: ["budget"],
+        badge: "🌱 100% Vegetarian",
+        img: IMG_HERO_PIZZA
+      },
+      {
+        id: "bolognese-classic",
+        name: "Bolognese Classic Pizza",
+        category: "deluxe-classic",
+        tier: "Classic Pizza",
+        price: 1136,
+        desc: "Slow-simmered chicken bolognese ragù, melted mozzarella cheese, bell pepper & sweet onion.",
+        tags: ["budget"],
+        badge: "🇮🇹 Italian Classic",
+        img: IMG_HERO_PIZZA
+      },
+      {
+        id: "margherita-classic",
+        name: "Margherita Classic Pizza",
+        category: "deluxe-classic",
+        tier: "Classic Pizza",
+        price: 994,
+        desc: "Artisanal mozzarella cheese, sun-ripened tomato, bell pepper, onion & extra virgin olive oil.",
+        tags: ["budget", "popular"],
+        badge: "🧀 Pure Cheese",
+        img: IMG_HERO_PIZZA
+      },
+      {
+        id: "sausages-classic",
+        name: "Sausages Classic Pizza",
+        category: "deluxe-classic",
+        tier: "Classic Pizza",
+        price: 994,
+        desc: "Sliced chicken sausages, cracked black pepper, onion, mozzarella cheese & olive oil.",
+        tags: ["budget"],
+        badge: "🍕 Kid Favorite",
+        img: IMG_HERO_PIZZA
+      },
+      {
+        id: "salami-classic",
+        name: "Chicken Salami Classic Pizza",
+        category: "deluxe-classic",
+        tier: "Classic Pizza",
+        price: 994,
+        desc: "Savory cured chicken salami slices over melted mozzarella cheese and signature herb tomato base.",
+        tags: ["budget"],
+        badge: "🍕 Value Classic",
+        img: IMG_HERO_PIZZA
+      },
+
+      // Pastas & Lasagna
+      {
+        id: "heavenly-lasagna",
+        name: "Heavenly Baked Chicken Lasagna",
+        category: "pasta-lasagna",
+        tier: "Signature Oven Pasta",
+        price: 1450,
+        desc: "Layers of rich spiced chicken meat sauce, velvety béchamel, and premium mozzarella baked until golden and bubbling.",
+        tags: ["popular"],
+        badge: "🧀 Every Layer Tells a Story",
+        img: IMG_PASTA_LASAGNA
+      },
+      {
+        id: "carbonara-pasta",
+        name: "Creamy Carbonara Pasta",
+        category: "pasta-lasagna",
+        tier: "Artisanal Pasta",
+        price: 1200,
+        desc: "Al dente pasta ribbons folded into a rich parmesan cream sauce with savoury chicken strips, black pepper & herbs.",
+        tags: ["popular", "budget"],
+        badge: "🍝 Best Seller",
+        img: IMG_PASTA_LASAGNA
+      },
+      {
+        id: "cheesy-pasta",
+        name: "Signature Cheesy Penne Pasta",
+        category: "pasta-lasagna",
+        tier: "Artisanal Pasta",
+        price: 1200,
+        desc: "Velvety double-cheese sauce, black olives, sweet corn, and fresh herbs baked to cheesy perfection.",
+        tags: ["budget"],
+        badge: "🧀 Cheese Lover",
+        img: IMG_PASTA_LASAGNA
+      },
+
+      // Burgers, Wraps & Crispy Chicken
+      {
+        id: "crispy-chicken-burger",
+        name: "Golden Crispy Chicken Burger",
+        category: "burgers-chicken",
+        tier: "Gourmet Burger",
+        price: 680,
+        desc: "Crunchy golden-fried chicken breast fillet, melted cheddar slice, spicy house mayo & crisp lettuce on a toasted bun.",
+        tags: ["popular", "budget"],
+        badge: "🍔 Unbeatable Value",
+        img: IMG_CRISPY_BURGER
+      },
+      {
+        id: "classic-chicken-burger",
+        name: "Classic Grilled Chicken Burger",
+        category: "burgers-chicken",
+        tier: "Gourmet Burger",
+        price: 650,
+        desc: "Juicy herb-seasoned chicken patty, caramelized onions, fresh greens, and signature burger sauce.",
+        tags: ["budget"],
+        badge: "🍔 Classic Choice",
+        img: IMG_CRISPY_BURGER
+      },
+      {
+        id: "crispy-chicken-4pc",
+        name: "Crispy Chicken (4 Pcs) + Fries Platter",
+        category: "burgers-chicken",
+        tier: "House Specialty",
+        price: 1550,
+        desc: "Four pieces of golden crunchy fried chicken breast — juicy inside, ultra-crispy outside — served with seasoned French Fries.",
+        tags: ["popular"],
+        badge: "🍗 Golden & Juicy",
+        img: IMG_CRISPY_BURGER
+      },
+      {
+        id: "fresh-chicken-wrap",
+        name: "Fresh Crispy Chicken Wrap",
+        category: "burgers-chicken",
+        tier: "Wraps",
+        price: 780,
+        desc: "Tender crispy chicken strips, crunchy garden slaw, and roasted garlic sauce wrapped in a warm grilled tortilla.",
+        tags: ["budget"],
+        badge: "🌯 Quick Bite",
+        img: IMG_CRISPY_BURGER
+      },
+
+      // Wok-Fired Fried Rice
+      {
+        id: "mixed-fried-rice",
+        name: "Heavenly Mixed Special Fried Rice",
+        category: "fried-rice",
+        tier: "Basmati Wok Rice",
+        price: 1750,
+        desc: "Fragrant long-grain basmati rice wok-tossed with eggs, roast chicken, cuttlefish, prawns, tuna & chicken sausage.",
+        tags: ["popular", "seafood"],
+        badge: "🍚 Full Feast",
+        img: IMG_PASTA_LASAGNA
+      },
+      {
+        id: "seafood-fried-rice",
+        name: "Galle Seafood Basmati Rice",
+        category: "fried-rice",
+        tier: "Basmati Wok Rice",
+        price: 1550,
+        desc: "Wok-fired basmati rice with farm eggs, ocean prawns, tender cuttlefish, tuna & spring onion.",
+        tags: ["seafood"],
+        badge: "🦐 Coastal Wok",
+        img: IMG_PASTA_LASAGNA
+      },
+      {
+        id: "crispy-chicken-rice",
+        name: "Crispy Chicken Basmati Fried Rice",
+        category: "fried-rice",
+        tier: "Basmati Wok Rice",
+        price: 1350,
+        desc: "Aromatic egg fried basmati rice crowned with golden crispy fried chicken legs and chili paste.",
+        tags: ["popular", "spicy"],
+        badge: "🍗 Local Favorite",
+        img: IMG_CRISPY_BURGER
+      },
+      {
+        id: "chicken-fried-rice",
+        name: "Classic Chicken Basmati Rice",
+        category: "fried-rice",
+        tier: "Basmati Wok Rice",
+        price: 1040,
+        desc: "Fluffy basmati rice wok-tossed with seasoned chicken, eggs, carrots & leeks.",
+        tags: ["budget"],
+        badge: "🍚 Everyday Classic",
+        img: IMG_PASTA_LASAGNA
+      },
+
+      // Bites, Mocktails & Bubble Tea
+      {
+        id: "boba-milk-tea",
+        name: "Brown Sugar Pearl Bubble Tea & Mocktails",
+        category: "bites-drinks",
+        tier: "Beverages & Boba",
+        price: 750,
+        desc: "Chilled brown sugar tapioca pearl milk tea or tropical passionfruit & virgin mint mojito mocktail.",
+        tags: ["popular", "budget"],
+        badge: "🧋 Refreshing Boba",
+        img: IMG_DRINKS_BOBA
+      },
+      {
+        id: "crispy-french-fries",
+        name: "Golden Seasoned French Fries",
+        category: "bites-drinks",
+        tier: "Bites & Sides",
+        price: 600,
+        desc: "Crispy golden potato fries lightly dusted with peri-peri and sea salt, served with tomato ketchup & garlic dip.",
+        tags: ["popular", "budget"],
+        badge: "🍟 Popular Side",
+        img: IMG_CRISPY_BURGER
+      },
+      {
+        id: "sri-lankan-omelette",
+        name: "Cheesy / Sri Lankan Spicy Omelette",
+        category: "bites-drinks",
+        tier: "Bites & Sides",
+        price: 600,
+        desc: "Fluffy farm-egg omelette folded with green chillies, red onions, tomatoes, and melted cheese.",
+        tags: ["spicy", "budget"],
+        badge: "🍳 Hot Bite",
+        img: IMG_DEVILLED_PIZZA
+      }
+    ];
+
+    // State
+    let activeCategory = "all";
+    let activeTagFilter = "all";
+    let searchQuery = "";
+    let orderMode = "Dine-In";
+    let isSinhala = false;
+    let is3dExploded = false;
+    let is3dOrbiting = false;
+    let orbitTween = null;
+
+    let cart = [
+      { id: "heavenly-mix", name: "Heavenly Mix Pizza (Large)", price: 2100, qty: 1 }
+    ];
+
+    // Custom Pizza Studio State
+    let studioState = {
+      size: 'Large 12"',
+      sizePrice: 1650,
+      crust: 'Hand-Tossed Olive Oil Crust',
+      crustPrice: 0,
+      spice: '🌶️ Galle Devilled Kick',
+      toppings: [
+        { name: 'Devilled Chicken', price: 200 },
+        { name: 'Caramelized Onion & Corn', price: 0 }
+      ]
+    };
+
+    // Format LKR currency
+    function formatLKR(num) {
+      return "LKR " + Number(num).toLocaleString("en-LK");
+    }
+
+    // Bind 3D Interactive Perspective Tilt to any .depth-card-3d element
+    function bind3DTiltCards(root = document) {
+      const cards = root.querySelectorAll(".depth-card-3d");
+      cards.forEach(card => {
+        if (card.dataset.tiltBound === "1") return;
+        card.dataset.tiltBound = "1";
+
+        card.addEventListener("mousemove", (e) => {
+          if (is3dOrbiting) return;
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const rotateX = ((y - centerY) / centerY) * -9;
+          const rotateY = ((x - centerX) / centerX) * 9;
+
+          card.style.setProperty("--glare-x", `${(x / rect.width) * 100}%`);
+          card.style.setProperty("--glare-y", `${(y / rect.height) * 100}%`);
+
+          if (window.gsap) {
+            gsap.to(card, {
+              rotateX: rotateX,
+              rotateY: rotateY,
+              scale: 1.02,
+              duration: 0.35,
+              ease: "power2.out",
+              overwrite: "auto"
+            });
+          } else {
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+          }
+        });
+
+        card.addEventListener("mouseleave", () => {
+          if (is3dOrbiting) return;
+          if (window.gsap) {
+            gsap.to(card, {
+              rotateX: 0,
+              rotateY: 0,
+              scale: 1,
+              duration: 0.65,
+              ease: "elastic.out(1, 0.6)",
+              overwrite: "auto"
+            });
+          } else {
+            card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+          }
+        });
+      });
+    }
+
+    // Render Menu Grid with 3D Depth & Scroll Fade-In/Out Animations
+    function renderMenu() {
+      const grid = document.getElementById("menuGrid");
+      const emptyState = document.getElementById("menuEmptyState");
+      if (!grid) return;
+
+      const filtered = MENU_ITEMS.filter(item => {
+        const matchesCat = activeCategory === "all" || item.category === activeCategory;
+        const matchesTag = activeTagFilter === "all" || item.tags.includes(activeTagFilter);
+        const q = searchQuery.trim().toLowerCase();
+        const matchesSearch = !q || item.name.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q) || item.tier.toLowerCase().includes(q);
+        return matchesCat && matchesTag && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+      grid.innerHTML = filtered.map(item => `
+        <article class="depth-card-3d menu-card-anim card-cinematic rounded-3xl overflow-hidden flex flex-col justify-between group">
+          <div class="depth-glare absolute inset-0 rounded-3xl z-30"></div>
+          <div>
+            <div class="depth-layer-img relative h-48 overflow-hidden border-b border-white/10">
+              <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent"></div>
+              <span class="depth-layer-mid absolute top-3 left-3 px-3 py-1 rounded-full bg-obsidian-950/85 border border-white/15 text-[11px] font-semibold text-amber-300">
+                ${item.badge}
+              </span>
+              <span class="depth-layer-mid absolute bottom-3 right-3 px-3 py-1 rounded-xl bg-obsidian-950/90 border border-gold-500/40 text-gold-400 font-extrabold text-sm">
+                ${formatLKR(item.price)}
+              </span>
+            </div>
+            <div class="depth-layer-mid p-5">
+              <div class="text-[11px] uppercase tracking-wider text-ember-400 font-semibold mb-1">${item.tier}</div>
+              <h3 class="font-serif text-xl font-bold text-white group-hover:text-gold-300 transition">${item.name}</h3>
+              <p class="text-xs text-stone-400 mt-1.5 leading-relaxed">${item.desc}</p>
+            </div>
+          </div>
+          <div class="depth-layer-front px-5 pb-5 pt-2 flex items-center justify-between gap-3 relative z-20">
+            <button type="button" data-add-id="${item.id}" class="add-to-cart-btn flex-1 py-2.5 px-4 rounded-xl bg-white/10 hover:bg-ember-500 text-white font-semibold text-xs transition flex items-center justify-center gap-2 border border-white/10 hover:border-ember-500">
+              <span>+ Add to Order</span>
+              <span class="text-amber-300 font-bold">(${formatLKR(item.price)})</span>
+            </button>
+          </div>
+        </article>
+      `).join("");
+
+      // Attach listeners to newly rendered Add buttons
+      grid.querySelectorAll(".add-to-cart-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-add-id");
+          const found = MENU_ITEMS.find(m => m.id === id);
+          if (found) addToCart(found.id, found.name, found.price);
+        });
+      });
+
+      bind3DTiltCards(grid);
+
+      // Animate newly rendered menu cards with GSAP stagger
+      if (window.gsap) {
+        gsap.fromTo(
+          grid.querySelectorAll(".menu-card-anim"),
+          { opacity: 0, y: 36, rotateX: 10, scale: 0.95 },
+          { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.55, stagger: 0.05, ease: "power3.out" }
+        );
+      }
+    }
+
+    // Cart Operations
+    function addToCart(id, name, price) {
+      const existing = cart.find(c => c.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id, name, price, qty: 1 });
+      }
+      updateCartUI();
+      showToast(`Added "${name}" to your order!`);
+    }
+
+    function updateCartUI() {
+      const badge = document.getElementById("cartCountBadge");
+      const container = document.getElementById("cartItemsContainer");
+      const subText = document.getElementById("cartSubtotalText");
+      const totText = document.getElementById("cartTotalText");
+
+      const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
+      const totalPrice = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+
+      if (badge) badge.textContent = String(totalCount);
+      if (subText) subText.textContent = formatLKR(totalPrice);
+      if (totText) totText.textContent = formatLKR(totalPrice);
+
+      if (!container) return;
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 text-stone-400 text-xs">
+            Your order tray is empty. Add a Heavenly Pizza or custom creation!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = cart.map(item => `
+        <div class="flex items-center justify-between gap-3 p-3 rounded-2xl bg-obsidian-950 border border-white/10">
+          <div class="min-w-0 flex-1">
+            <div class="text-xs font-bold text-white truncate">${item.name}</div>
+            <div class="text-[11px] text-gold-400 font-semibold">${formatLKR(item.price)} each</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" data-dec-id="${item.id}" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-bold">-</button>
+            <span class="text-xs font-bold text-white w-5 text-center">${item.qty}</span>
+            <button type="button" data-inc-id="${item.id}" class="w-6 h-6 rounded-lg bg-ember-500 hover:bg-ember-600 text-white text-xs font-bold">+</button>
+          </div>
+        </div>
+      `).join("");
+
+      container.querySelectorAll("[data-dec-id]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-dec-id");
+          const item = cart.find(c => c.id === id);
+          if (item) {
+            item.qty -= 1;
+            if (item.qty <= 0) cart = cart.filter(c => c.id !== id);
+            updateCartUI();
+          }
+        });
+      });
+
+      container.querySelectorAll("[data-inc-id]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-inc-id");
+          const item = cart.find(c => c.id === id);
+          if (item) {
+            item.qty += 1;
+            updateCartUI();
+          }
+        });
+      });
+    }
+
+    // Custom Pizza Studio Logic
+    function updateStudioUI() {
+      const toppingsTotal = studioState.toppings.reduce((s, t) => s + t.price, 0);
+      const total = studioState.sizePrice + studioState.crustPrice + toppingsTotal;
+
+      document.getElementById("studioSizeBadge").textContent = studioState.size;
+      document.getElementById("studioSpiceBadge").textContent = studioState.spice;
+      document.getElementById("studioTotalPrice").textContent = formatLKR(total);
+      document.getElementById("studioSummaryCrust").textContent = `${studioState.size} • ${studioState.crust}`;
+      document.getElementById("studioSummarySauce").textContent = `Rich Herb Marinara • ${studioState.spice}`;
+      const topNames = studioState.toppings.length > 0
+        ? studioState.toppings.map(t => t.name).join(", ")
+        : "Classic Cheese Base";
+      document.getElementById("studioSummaryToppings").textContent = topNames;
+    }
+
+    // Toast helper
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("toastBanner");
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.remove("hidden");
+      if (window.gsap) {
+        gsap.fromTo(toast, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" });
+      }
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 2800);
+    }
+
+    // Show Confirmation Modal
+    function openConfirmationModal(title, summaryText) {
+      const modal = document.getElementById("confirmationModal");
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalSummaryBox").textContent = summaryText;
+      const waUrl = "https://wa.me/94711118989?text=" + encodeURIComponent(summaryText);
+      document.getElementById("modalWhatsAppLink").setAttribute("href", waUrl);
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    // Ember Particle Animation on Hero Canvas
+    function initEmberParticles() {
+      const canvas = document.getElementById("emberCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener("resize", () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = Array.from({ length: 34 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 2.3 + 0.7,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: -(Math.random() * 0.75 + 0.25),
+        alpha: Math.random() * 0.65 + 0.2,
+        color: Math.random() > 0.4 ? "#e84a27" : "#fbbf24"
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.y < -10) {
+            p.y = height + 10;
+            p.x = Math.random() * width;
+          }
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    // GSAP & ScrollTrigger Animations (Typography, 3D Depth Scroll Up/Down, Fade In/Out)
+    function initGSAPAnimations() {
+      if (!window.gsap) return;
+      if (window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+      }
+
+      // 1. Top Scroll Progress Bar
+      gsap.to("#scrollProgressBar", {
+        scaleX: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: document.body,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.2
+        }
+      });
+
+      // 2. Hero Entrance Staggered Typography & Elements
+      const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      heroTl
+        .fromTo("#heroBadgeText", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 })
+        .fromTo(
+          ["#heroTitleLine1", "#heroTitleLine2"],
+          { opacity: 0, y: 55, rotateX: -65, transformOrigin: "50% 100%" },
+          { opacity: 1, y: 0, rotateX: 0, duration: 1.0, stagger: 0.18, ease: "back.out(1.5)" },
+          "-=0.4"
+        )
+        .fromTo("#heroSubtitle", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.8 }, "-=0.55")
+        .fromTo("#heroCtaRow", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.5")
+        .fromTo("#heroMagicCallout", { opacity: 0, x: -25 }, { opacity: 1, x: 0, duration: 0.7 }, "-=0.45")
+        .fromTo(
+          "#heroCircleBadge",
+          { opacity: 0, scale: 0.65, rotate: -28 },
+          { opacity: 1, scale: 1, rotate: -8, duration: 1.0, ease: "elastic.out(1, 0.65)" },
+          "-=0.7"
+        );
+
+      // 3. Hero Background Video Parallax & Fade on Scroll Down / Up
+      gsap.to("#heroBgVideo", {
+        yPercent: 18,
+        scale: 1.16,
+        opacity: 0.35,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#heroSection",
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // 4. Section Headings Kinetic Word Split & Scroll Up/Down Reveal
+      document.querySelectorAll(".gsap-split-heading").forEach(heading => {
+        gsap.fromTo(
+          heading,
+          { opacity: 0, y: 48, rotateX: -45, transformOrigin: "50% 100%" },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.9,
+            ease: "back.out(1.4)",
+            scrollTrigger: {
+              trigger: heading,
+              start: "top 88%",
+              end: "bottom 12%",
+              toggleActions: "play reverse play reverse"
+            }
+          }
+        );
+      });
+
+      // 5. Subtitle & Pillar Fade-In / Fade-Out on Scroll Up and Down
+      gsap.utils.toArray(".gsap-fade-up").forEach((el, idx) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            delay: (idx % 4) * 0.06,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 90%",
+              end: "bottom 10%",
+              toggleActions: "play reverse play reverse"
+            }
+          }
+        );
+      });
+
+      // 6. 3D Depth Cards Scroll Up & Down Fade In/Out + 3D Tilt Scrub
+      gsap.utils.toArray(".gsap-scroll-depth").forEach((card, i) => {
+        gsap.fromTo(
+          card,
+          {
+            opacity: 0,
+            y: 70,
+            rotateX: 16,
+            scale: 0.92
+          },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+            duration: 0.85,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              end: "bottom 12%",
+              toggleActions: "play reverse play reverse"
+            }
+          }
+        );
+      });
+
+      // 7. Inner 3D Depth Image Vertical Parallax Scrub (Scroll Up & Down)
+      gsap.utils.toArray(".gsap-parallax-img").forEach(img => {
+        gsap.fromTo(
+          img,
+          { yPercent: -10, scale: 1.14 },
+          {
+            yPercent: 10,
+            scale: 1.04,
+            ease: "none",
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true
+            }
+          }
+        );
+      });
+    }
+
+    // Initialize Event Listeners
+    window.addEventListener("DOMContentLoaded", () => {
+      renderMenu();
+      updateCartUI();
+      updateStudioUI();
+      initEmberParticles();
+      bind3DTiltCards();
+      initGSAPAnimations();
+
+      // Ensure Hero Video plays smoothly
+      const heroVideo = document.getElementById("heroBgVideo");
+      if (heroVideo) {
+        const playPromise = heroVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
+        }
+      }
+
+      // Hero Circular Badge Click -> Scroll to Signature Showcase
+      const circleBadge = document.getElementById("heroCircleBadge");
+      if (circleBadge) {
+        circleBadge.addEventListener("click", () => {
+          const target = document.getElementById("signatureShowcaseSection");
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+        });
+      }
+
+
+
+      // Quick-Add buttons inside 3D Depth Showcase
+      document.querySelectorAll("[data-depth-add]").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const id = btn.getAttribute("data-depth-add");
+          const item = MENU_ITEMS.find(m => m.id === id);
+          if (item) addToCart(item.id, item.name, item.price);
+        });
+      });
+
+      // Default date for reservation input
+      const dateInput = document.getElementById("resDate");
+      if (dateInput) {
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.value = today;
+      }
+
+      // Category buttons
+      document.querySelectorAll(".menu-cat-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeCategory = btn.getAttribute("data-category");
+          document.querySelectorAll(".menu-cat-btn").forEach(b => {
+            b.className = "menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-obsidian-800 hover:bg-obsidian-700 text-stone-300 border border-white/10 transition";
+          });
+          btn.className = "menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-ember-500 text-white shadow-lg transition";
+          renderMenu();
+        });
+      });
+
+      // Search & Tag filter
+      document.getElementById("menuSearchInput").addEventListener("input", (e) => {
+        searchQuery = e.target.value;
+        renderMenu();
+      });
+
+      document.getElementById("dietaryFilterSelect").addEventListener("change", (e) => {
+        activeTagFilter = e.target.value;
+        renderMenu();
+      });
+
+      document.getElementById("resetMenuFiltersBtn").addEventListener("click", () => {
+        activeCategory = "all";
+        activeTagFilter = "all";
+        searchQuery = "";
+        document.getElementById("menuSearchInput").value = "";
+        document.getElementById("dietaryFilterSelect").value = "all";
+        renderMenu();
+      });
+
+      // Hero Quick Add buttons
+      document.querySelectorAll("[data-quick-add]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-quick-add");
+          const item = MENU_ITEMS.find(m => m.id === id);
+          if (item) addToCart(item.id, item.name, item.price);
+        });
+      });
+
+      // Custom Pizza Studio Size buttons
+      document.querySelectorAll(".studio-size-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          studioState.size = btn.getAttribute("data-size");
+          studioState.sizePrice = Number(btn.getAttribute("data-size-price"));
+          document.querySelectorAll(".studio-size-btn").forEach(b => {
+            b.className = "studio-size-btn p-4 rounded-2xl border border-white/10 bg-obsidian-900/80 text-left hover:border-ember-500 transition";
+          });
+          btn.className = "studio-size-btn p-4 rounded-2xl border-2 border-ember-500 bg-ember-500/15 text-left transition";
+          updateStudioUI();
+        });
+      });
+
+      // Studio Crust buttons
+      document.querySelectorAll(".studio-crust-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          studioState.crust = btn.getAttribute("data-crust");
+          studioState.crustPrice = Number(btn.getAttribute("data-crust-price"));
+          document.querySelectorAll(".studio-crust-btn").forEach(b => {
+            b.className = "studio-crust-btn w-full p-3 rounded-xl border border-white/10 bg-obsidian-900/80 flex justify-between items-center text-xs sm:text-sm";
+          });
+          btn.className = "studio-crust-btn w-full p-3 rounded-xl border-2 border-ember-500 bg-ember-500/15 flex justify-between items-center text-xs sm:text-sm";
+          updateStudioUI();
+        });
+      });
+
+      // Studio Spice buttons
+      document.querySelectorAll(".studio-spice-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          studioState.spice = btn.getAttribute("data-spice");
+          document.querySelectorAll(".studio-spice-btn").forEach(b => {
+            b.className = "studio-spice-btn w-full p-3 rounded-xl border border-white/10 bg-obsidian-900/80 flex justify-between items-center text-xs sm:text-sm";
+          });
+          btn.className = "studio-spice-btn w-full p-3 rounded-xl border-2 border-ember-500 bg-ember-500/15 flex justify-between items-center text-xs sm:text-sm";
+          updateStudioUI();
+        });
+      });
+
+      // Studio Toppings toggle
+      document.querySelectorAll(".studio-top-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const name = btn.getAttribute("data-topping");
+          const price = Number(btn.getAttribute("data-top-price"));
+          const exists = studioState.toppings.find(t => t.name === name);
+          if (exists) {
+            studioState.toppings = studioState.toppings.filter(t => t.name !== name);
+            btn.className = "studio-top-btn p-3 rounded-xl border border-white/10 bg-obsidian-900/80 text-left text-xs transition";
+          } else {
+            studioState.toppings.push({ name, price });
+            btn.className = "studio-top-btn active p-3 rounded-xl border-2 border-ember-500 bg-ember-500/15 text-left text-xs transition";
+          }
+          updateStudioUI();
+        });
+      });
+
+      // Add Custom Pizza to Cart
+      document.getElementById("addCustomPizzaBtn").addEventListener("click", () => {
+        const toppingsTotal = studioState.toppings.reduce((s, t) => s + t.price, 0);
+        const total = studioState.sizePrice + studioState.crustPrice + toppingsTotal;
+        const topList = studioState.toppings.map(t => t.name).join(" + ") || "Cheese";
+        const customName = `Custom ${studioState.size} Pizza (${studioState.crust}, ${topList})`;
+        const customId = "custom-" + Date.now();
+        addToCart(customId, customName, total);
+      });
+
+      // Cart Drawer Open / Close
+      const cartDrawer = document.getElementById("cartDrawerBackdrop");
+      document.getElementById("openCartBtn").addEventListener("click", () => {
+        cartDrawer.classList.remove("hidden");
+      });
+      document.getElementById("closeCartBtn").addEventListener("click", () => {
+        cartDrawer.classList.add("hidden");
+      });
+      cartDrawer.addEventListener("click", (e) => {
+        if (e.target === cartDrawer) cartDrawer.classList.add("hidden");
+      });
+
+      // Order Mode buttons in Cart
+      document.querySelectorAll(".order-mode-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          orderMode = btn.getAttribute("data-mode");
+          document.querySelectorAll(".order-mode-btn").forEach(b => {
+            b.className = "order-mode-btn py-2 rounded-lg font-semibold text-stone-400 hover:text-white";
+          });
+          btn.className = "order-mode-btn py-2 rounded-lg font-semibold bg-ember-500 text-white";
+        });
+      });
+
+      // Clear Cart
+      document.getElementById("clearCartBtn").addEventListener("click", () => {
+        cart = [];
+        updateCartUI();
+      });
+
+      // Send Order via WhatsApp
+      document.getElementById("sendWhatsAppOrderBtn").addEventListener("click", () => {
+        if (cart.length === 0) {
+          showToast("Please add at least one item to your order first!");
+          return;
+        }
+        const custName = document.getElementById("checkoutCustomerName").value.trim() || "Valued Guest";
+        const custNote = document.getElementById("checkoutCustomerNote").value.trim() || "None";
+        const total = cart.reduce((acc, i) => acc + i.price * i.qty, 0);
+        const lines = cart.map(i => `• ${i.qty}x ${i.name} — ${formatLKR(i.price * i.qty)}`).join("\n");
+
+        const summary = `🍕 *HEAVENLY PIZZA GALLE — NEW ORDER*\n` +
+          `Customer: ${custName}\n` +
+          `Service Mode: ${orderMode}\n` +
+          `--------------------------\n` +
+          `${lines}\n` +
+          `--------------------------\n` +
+          `*TOTAL ESTIMATE: ${formatLKR(total)}*\n` +
+          `Notes / Address: ${custNote}\n` +
+          `📍 Baddegama Rd, Kahaduwawattha, Galle (071 111 8989)`;
+
+        cartDrawer.classList.add("hidden");
+        openConfirmationModal("Your Heavenly Order is Ready!", summary);
+      });
+
+      // Reservation Form Submission
+      document.getElementById("reservationForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("resName").value.trim();
+        const phone = document.getElementById("resPhone").value.trim();
+        const date = document.getElementById("resDate").value;
+        const time = document.getElementById("resTime").value;
+        const guests = document.getElementById("resGuests").value;
+        const seating = document.getElementById("resSeating").value;
+        const occasion = document.getElementById("resOccasion").value;
+        const notes = document.getElementById("resNotes").value.trim() || "Standard table setup";
+
+        const resText = `🌿 *HEAVENLY PIZZA GALLE — TABLE RESERVATION*\n` +
+          `Guest Name: ${name}\n` +
+          `Phone: ${phone}\n` +
+          `Date & Time: ${date} at ${time}\n` +
+          `Party Size: ${guests}\n` +
+          `Seating Area: ${seating}\n` +
+          `Occasion: ${occasion}\n` +
+          `Special Notes: ${notes}\n` +
+          `📍 Kahaduwawattha, Baddegama Rd, Galle (071 111 8989)`;
+
+        openConfirmationModal("Table Reservation Pass Created!", resText);
+      });
+
+      // Modal close & copy
+      document.getElementById("closeModalBtn").addEventListener("click", () => {
+        const modal = document.getElementById("confirmationModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      });
+
+      document.getElementById("copySummaryBtn").addEventListener("click", () => {
+        const text = document.getElementById("modalSummaryBox").textContent;
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          showToast("Copied order details to clipboard!");
+        } catch (err) {
+          showToast("Ready to send via WhatsApp!");
+        }
+        document.body.removeChild(ta);
+      });
+
+      // Mobile Navigation Toggle
+      const mobDrawer = document.getElementById("mobileNavDrawer");
+      document.getElementById("mobileMenuBtn").addEventListener("click", () => {
+        mobDrawer.classList.toggle("hidden");
+      });
+      document.querySelectorAll(".mobile-nav-link").forEach(link => {
+        link.addEventListener("click", () => mobDrawer.classList.add("hidden"));
+      });
+
+      // Footer VIP Club Form Handler
+      const footerVipForm = document.getElementById("footerVipForm");
+      if (footerVipForm) {
+        footerVipForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const val = document.getElementById("footerVipInput").value.trim();
+          if (val) {
+            showToast("Welcome to the Heavenly Pizza Galle VIP Club! 🍕✨");
+            document.getElementById("footerVipInput").value = "";
+          }
+        });
+      }
+
+      // GSAP Animated Footer Marquee, Glow Orbs & Staggered Column Reveal
+      if (window.gsap) {
+        gsap.to("#footerMarqueeTrack", {
+          xPercent: -35,
+          duration: 22,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
+
+        gsap.to(".footer-glow-orb", {
+          x: 40,
+          y: -25,
+          scale: 1.15,
+          duration: 5,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          stagger: 1.5
+        });
+
+        gsap.utils.toArray(".gsap-footer-reveal").forEach((el, idx) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 45 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.85,
+              delay: idx * 0.08,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: "#siteFooter",
+                start: "top 88%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        });
+
+        gsap.fromTo(
+          "#footerBigWordmark",
+          { opacity: 0, y: 40, scale: 0.94 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: "#footerBigWordmark",
+              start: "top 95%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+    });
+  </script>
+</body>
+</html>

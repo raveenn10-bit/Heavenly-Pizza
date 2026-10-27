@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #070606;
+  color: #f5f2eb;
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0b0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #302722;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e84a27;
+}
+
+/* Scroll progress bar */
+#scrollProgressBar {
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+/* Cinematic Glows & Gradients */
+.ember-glow {
+  box-shadow: 0 0 35px -5px rgba(232, 74, 39, 0.5), 0 0 15px -3px rgba(245, 158, 11, 0.25);
+}
+.gold-glow {
+  box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.35);
+}
+.card-cinematic {
+  background: linear-gradient(145deg, rgba(24, 19, 16, 0.92) 0%, rgba(12, 10, 9, 0.97) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-cinematic:hover {
+  border-color: rgba(232, 74, 39, 0.45);
+  box-shadow: 0 22px 45px -15px rgba(0, 0, 0, 0.85), 0 0 28px -5px rgba(232, 74, 39, 0.28);
+}
+.glass-nav {
+  background: rgba(11, 9, 8, 0.90);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Hero directional vignette matching original */
+.hero-cinematic-vignette {
+  background:
+    linear-gradient(90deg, rgba(7, 6, 6, 0.92) 0%, rgba(7, 6, 6, 0.72) 42%, rgba(7, 6, 6, 0.28) 72%, rgba(7, 6, 6, 0.65) 100%),
+    linear-gradient(180deg, rgba(7, 6, 6, 0.55) 0%, rgba(7, 6, 6, 0.15) 45%, rgba(7, 6, 6, 0.95) 100%);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fff5eb 0%, #fcd34d 45%, #f59e0b 75%, #e84a27 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 3D Perspective & Multi-Layer Depth System */
+.perspective-stage {
+  perspective: 1300px;
+  transform-style: preserve-3d;
+}
+.depth-card-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.depth-layer-bg {
+  transform: translateZ(-25px) scale(1.06);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.depth-layer-img {
+  transform: translateZ(0px) scale(1.02);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.depth-layer-mid {
+  transform: translateZ(38px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.65);
+}
+.depth-layer-front {
+  transform: translateZ(72px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.85);
+}
+
+/* Specular glare overlay on 3D cards */
+.depth-glare {
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.22) 0%, rgba(232, 74, 39, 0.08) 35%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.depth-card-3d:hover .depth-glare {
+  opacity: 1;
+}
+
+/* Kinetic Word wrappers */
+.kinetic-word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+/* Floating Circular Badge in Hero Bottom-Right */
+.hero-circle-badge {
+  background: radial-gradient(circle at 30% 30%, rgba(36, 28, 24, 0.92) 0%, rgba(12, 10, 9, 0.96) 100%);
+  border: 1px solid rgba(232, 74, 39, 0.38);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), inset 0 0 25px rgba(232, 74, 39, 0.15);
+  transform: rotate(-8deg);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+}
+.hero-circle-badge:hover {
+  transform: rotate(0deg) scale(1.06) translateY(-4px);
+  border-color: rgba(232, 74, 39, 0.85);
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-9px); }
+}
+.animate-float {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
