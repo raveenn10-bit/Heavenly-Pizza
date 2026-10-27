@@ -42,16 +42,16 @@ export default function Header() {
       <header className="sticky top-0 z-40 glass-nav">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand Logo & Editorial Title */}
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 group focus:outline-none shrink min-w-0">
-            <div className="relative w-9 h-9 sm:w-12 sm:h-12 rounded-full overflow-hidden border border-ember-500/60 shadow-md group-hover:scale-105 transition duration-300 shrink-0 bg-[#e03e1a]">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group focus:outline-none shrink min-w-0">
+            <div className="relative w-8 h-8 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full overflow-hidden border border-ember-500/60 shadow-md group-hover:scale-105 transition duration-300 shrink-0 bg-[#e03e1a]">
               <img
                 src="/assets/heavenly-logo.jpg"
                 alt="Heavenly Pizza Official Logo"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="leading-tight shrink min-w-0">
-              <span className="block font-serif font-extrabold text-base sm:text-xl tracking-wider text-white whitespace-nowrap">
+            <div className="leading-tight shrink min-w-0 pr-1">
+              <span className="block font-serif font-extrabold text-sm sm:text-lg md:text-xl tracking-normal sm:tracking-wider text-white whitespace-nowrap">
                 HEAVENLY
               </span>
               <p id="brandSubTagline" className="text-[10px] sm:text-xs text-stone-300 font-serif italic mt-0.5 whitespace-nowrap">
