@@ -28,6 +28,7 @@ const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://heavenlypizza.vercel.app"),
   title: "Heavenly Pizza — Galle | A Little Slice of Heaven",
   description:
     "Crafting Galle's favourite artisanal wood-fired style pizzas, bubbling baked lasagna, crispy golden chicken burgers, and chilled boba drinks in a cozy starlit garden setting.",
