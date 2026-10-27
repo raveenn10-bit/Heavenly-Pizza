@@ -6,14 +6,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { use3DTilt } from "@/hooks/use3DTilt";
 
 interface ReviewItemProps {
-  rating: string;
   source: string;
   quote: string;
   author: string;
   verifiedLabel: string;
 }
 
-function ReviewCard({ rating, source, quote, author, verifiedLabel }: ReviewItemProps) {
+function ReviewCard({ source, quote, author, verifiedLabel }: ReviewItemProps) {
   const cardRef = use3DTilt<HTMLDivElement>();
 
   return (
@@ -24,8 +23,18 @@ function ReviewCard({ rating, source, quote, author, verifiedLabel }: ReviewItem
       <div className="depth-glare absolute inset-0 rounded-3xl z-30 pointer-events-none"></div>
       <div className="depth-layer-mid">
         <div className="flex items-center justify-between mb-4">
-          <div className="text-gold-400 text-sm">{rating}</div>
-          <span className="text-[11px] text-stone-400 px-2.5 py-0.5 rounded-full bg-white/5">
+          <div className="flex items-center gap-1 text-gold-400">
+            {[...Array(5)].map((_, i) => (
+              <svg
+                key={i}
+                className="w-4 h-4 fill-current text-gold-400"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
+          </div>
+          <span className="text-[11px] text-stone-400 px-2.5 py-0.5 rounded-full bg-white/5 font-medium">
             {source}
           </span>
         </div>
@@ -35,7 +44,12 @@ function ReviewCard({ rating, source, quote, author, verifiedLabel }: ReviewItem
       </div>
       <div className="depth-layer-front mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-stone-400">
         <span className="font-semibold text-white">{author}</span>
-        <span className="text-emerald-400">✔ {verifiedLabel}</span>
+        <span className="inline-flex items-center gap-1 text-emerald-400 font-medium">
+          <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
+          {verifiedLabel}
+        </span>
       </div>
     </div>
   );
@@ -101,23 +115,20 @@ export default function Reviews() {
 
         <div className="grid md:grid-cols-3 gap-6 perspective-stage">
           <ReviewCard
-            rating="★★★★★"
             source="Google Review • June 2026"
-            quote="Visited Heavenly Pizza and honestly loved every bite 🍕✨ The pizza was fresh, cheesy, and packed with flavor."
+            quote="Visited Heavenly Pizza and honestly loved every bite. The pizza was fresh, cheesy, and packed with authentic flavor."
             author="Dine-In Guest"
             verifiedLabel="Verified Visit"
           />
 
           <ReviewCard
-            rating="★★★★★"
             source="Google Review • May 2026"
-            quote="I ordered from Heavenly Pizza Galle through PickMe, and it was amazing! The pizza tasted amazing and the drinks were perfect."
+            quote="I ordered from Heavenly Pizza Galle through PickMe, and it was amazing! The crust tasted exquisite and the drinks were perfect."
             author="Galle Delivery Customer"
             verifiedLabel="Verified Order"
           />
 
           <ReviewCard
-            rating="★★★★★"
             source="Google Review • April 2026"
             quote="Delicious pizza, good service, and nice atmosphere. Perfect spot in Kahaduwawattha for family dinner and crispy chicken."
             author="Local Guide • Galle"

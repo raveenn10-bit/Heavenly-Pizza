@@ -9,28 +9,30 @@ export default function Header() {
 
   return (
     <>
-      {/* TOP ORANGE-RED ANNOUNCEMENT BAR (Matching Screenshot 599) */}
-      <div className="bg-[#e03e1a] text-white text-[11px] sm:text-xs font-semibold tracking-[0.16em] uppercase py-2.5 px-4 sm:px-8 border-b border-white/15 relative z-40">
+      {/* Top Refined Announcement Ribbon */}
+      <div className="bg-[#d93815] text-white text-[11px] sm:text-xs font-medium tracking-[0.2em] uppercase py-2 px-4 sm:px-8 border-b border-white/10 relative z-40">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <span className="font-bold tracking-[0.18em]">GOOD FOOD. GOOD COMPANY. GALLE.</span>
+          <span className="font-semibold tracking-[0.22em] text-white/95">
+            Artisanal Wood-Fired · Galle, Sri Lanka
+          </span>
           <a
             href="https://maps.app.goo.gl/kq4AhGKhzCb9FAmH7?g_st=ic"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-amber-200 transition flex items-center gap-1.5 font-bold tracking-[0.15em]"
+            className="text-amber-200/90 hover:text-white transition flex items-center gap-1.5 font-semibold tracking-[0.16em]"
           >
-            <span>FIND YOUR LITTLE SLICE OF HEAVEN</span>
-            <span>↗</span>
+            <span>Visit Flagship Location</span>
+            <span className="text-sm leading-none">↗</span>
           </a>
         </div>
       </div>
 
-      {/* STICKY DARK HEADER WITH OFFICIAL UPLOADED LOGO (Matching Screenshot 599) */}
+      {/* Sticky Dark Header */}
       <header className="sticky top-0 z-40 glass-nav">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-          {/* Brand Logo using User's Uploaded Official Logo */}
+          {/* Brand Logo & Editorial Title */}
           <a href="#heroSection" className="flex items-center gap-3.5 group focus:outline-none">
-            <div className="relative w-12 h-12 sm:w-13 sm:h-13 rounded-full overflow-hidden border-2 border-ember-500/80 shadow-lg ember-glow group-hover:scale-105 transition duration-300 shrink-0 bg-[#e03e1a]">
+            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border border-ember-500/60 shadow-md group-hover:scale-105 transition duration-300 shrink-0 bg-[#e03e1a]">
               <img
                 src="/assets/heavenly-logo.jpg"
                 alt="Heavenly Pizza Official Logo"
@@ -47,35 +49,38 @@ export default function Header() {
             </div>
           </a>
 
-          {/* Center Desktop Navigation Links (Matching Screenshot 599) */}
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-stone-300">
-            <a href="#menuSection" className="hover:text-white transition">
-              The menu
+            <a href="#menuSection" className="hover:text-white transition tracking-wide">
+              The Menu
             </a>
-            <a href="#customizerSection" className="hover:text-white transition">
+            <a href="#customizerSection" className="hover:text-white transition tracking-wide">
               Slice Studio
             </a>
-            <a href="#ambienceSection" className="hover:text-white transition">
-              Our vibe
+            <a href="#ambienceSection" className="hover:text-white transition tracking-wide">
+              Our Vibe
             </a>
-            <a href="#reviewsSection" className="hover:text-white transition">
+            <a href="#reviewsSection" className="hover:text-white transition tracking-wide">
               Stories
             </a>
-            <a href="#reservationSection" className="hover:text-white transition">
-              Find us
+            <a href="#reservationSection" className="hover:text-white transition tracking-wide">
+              Find Us
             </a>
           </nav>
 
-          {/* Right Action Buttons: Cart Bag + LET'S EAT CTA + Mobile Menu */}
+          {/* Action Buttons: Cart + Order CTA + Mobile Menu */}
           <div className="flex items-center gap-2.5 sm:gap-3">
             <button
               id="openCartBtn"
               type="button"
               onClick={openCart}
-              className="relative flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white text-xs sm:text-sm font-semibold transition"
+              aria-label="View Order Tray"
+              className="relative flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs sm:text-sm font-semibold transition"
             >
-              <span>🍕</span>
-              <span className="sr-only sm:not-sr-only sm:inline text-stone-200">Your Order</span>
+              <svg className="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span className="sr-only sm:not-sr-only sm:inline text-stone-200">Order Tray</span>
               <span
                 id="cartCountBadge"
                 className="px-2 py-0.5 rounded-full bg-ember-500 text-white text-xs font-bold"
@@ -87,9 +92,9 @@ export default function Header() {
             <a
               href="#menuSection"
               id="headerLetsEatBtn"
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white text-xs sm:text-sm font-bold tracking-wider uppercase shadow-lg ember-glow transition"
+              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white text-xs sm:text-sm font-bold tracking-wider uppercase shadow-md transition"
             >
-              <span>LET'S EAT</span>
+              <span>Explore Menu</span>
               <span>↗</span>
             </a>
 
@@ -112,69 +117,69 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Collapsible Mobile Menu */}
+        {/* Mobile Navigation Drawer */}
         <div
           id="mobileNavDrawer"
           className={`${
             mobileMenuOpen ? "block" : "hidden"
-          } lg:hidden bg-obsidian-900/98 border-b border-white/10 px-4 pt-3 pb-5 space-y-2.5 text-sm`}
+          } lg:hidden bg-obsidian-900/98 border-b border-white/10 px-5 pt-4 pb-6 space-y-3 text-sm`}
         >
           <a
             href="#heroSection"
             onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200"
+            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
           >
-            ✨ Hero Video Experience
+            Home Cinema Experience
           </a>
           <a
             href="#menuSection"
             onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200"
+            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
           >
-            🍕 The Menu (27 Items)
+            The Menu (27 Verified Items)
           </a>
           <a
             href="#customizerSection"
             onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200"
+            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
           >
-            🔥 Interactive Slice Studio
+            Bespoke Slice Studio Atelier
           </a>
           <a
             href="#ambienceSection"
             onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200"
+            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
           >
-            🌿 Our Vibe (Garden &amp; Indoor)
+            Garden Dining &amp; Ambience
           </a>
           <a
             href="#reviewsSection"
             onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200"
+            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
           >
-            ⭐ Customer Stories (10K+)
+            Guest Stories (10,000+ Community)
           </a>
           <a
             href="#reservationSection"
             onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200"
+            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
           >
-            📍 Find Us &amp; Book a Table
+            Location &amp; Table Concierge
           </a>
-          <div className="pt-2 flex gap-2">
+          <div className="pt-3 flex gap-2.5">
             <a
               href="tel:+94711118989"
-              className="flex-1 text-center py-2.5 rounded-lg bg-white/10 text-amber-200 font-medium text-xs"
+              className="flex-1 text-center py-2.5 rounded-lg bg-white/10 text-amber-200 font-medium text-xs border border-white/10"
             >
-              📞 Call 071 111 8989
+              Call 071 111 8989
             </a>
             <a
               href="https://wa.me/94711118989"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 text-center py-2.5 rounded-lg bg-emerald-600/80 text-white font-medium text-xs"
+              className="flex-1 text-center py-2.5 rounded-lg bg-emerald-600/90 text-white font-medium text-xs"
             >
-              💬 WhatsApp
+              WhatsApp Us
             </a>
           </div>
         </div>

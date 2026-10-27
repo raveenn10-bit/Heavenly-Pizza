@@ -94,8 +94,8 @@ export default function Ambience() {
 
           <div className="grid sm:grid-cols-2 gap-4 pt-2">
             <div className="gsap-scroll-depth card-cinematic rounded-2xl p-4">
-              <div className="text-lg font-bold text-amber-300 mb-1">
-                🌿 Starlit Garden Patio
+              <div className="text-base font-bold text-amber-300 mb-1 tracking-wide">
+                Starlit Garden Patio
               </div>
               <p className="text-xs text-stone-400">
                 Lush tropical greenery, evening breeze, and ambient lighting ideal for
@@ -103,8 +103,8 @@ export default function Ambience() {
               </p>
             </div>
             <div className="gsap-scroll-depth card-cinematic rounded-2xl p-4">
-              <div className="text-lg font-bold text-ember-400 mb-1">
-                🥂 Celebration Packages
+              <div className="text-base font-bold text-ember-400 mb-1 tracking-wide">
+                Celebration Packages
               </div>
               <p className="text-xs text-stone-400">
                 Custom table setups for Bridal Showers (&quot;Bride to Be&quot;), birthdays,
@@ -115,16 +115,22 @@ export default function Ambience() {
 
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs sm:text-sm">
             <div className="flex items-center gap-2 text-stone-300">
-              <span className="text-emerald-400">✔</span> Free Parking Lot &amp; Street
-              Parking
+              <svg className="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Free Parking Lot &amp; Street Parking</span>
             </div>
             <div className="flex items-center gap-2 text-stone-300">
-              <span className="text-emerald-400">✔</span> Credit, Debit &amp; NFC Mobile
-              Payments
+              <svg className="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Credit, Debit &amp; NFC Mobile Payments</span>
             </div>
             <div className="flex items-center gap-2 text-stone-300">
-              <span className="text-emerald-400">✔</span> Table Service &amp;
-              Kid-Friendly
+              <svg className="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Table Service &amp; Kid-Friendly</span>
             </div>
           </div>
         </div>
@@ -151,7 +157,7 @@ export default function Ambience() {
                   Featured Community Moment
                 </span>
                 <p className="text-xs sm:text-sm text-white font-medium mt-0.5">
-                  &quot;Story of a happy customer 😇 — Bride to Be Celebration with Stories
+                  &quot;Story of a happy customer — Bride to Be Celebration with Stories
                   with Dandelions&quot;
                 </p>
               </div>

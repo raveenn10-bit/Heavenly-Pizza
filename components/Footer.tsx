@@ -13,7 +13,7 @@ export default function Footer() {
   const handleVipSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (vipInput.trim()) {
-      showToast("Welcome to the Heavenly Pizza Galle VIP Club! 🍕✨");
+      showToast("Welcome to the Heavenly Pizza Galle VIP Club!");
       setVipInput("");
     }
   };
@@ -95,19 +95,19 @@ export default function Footer() {
           id="footerMarqueeTrack"
           className="flex items-center gap-10 whitespace-nowrap text-xs sm:text-sm font-serif italic tracking-[0.2em] uppercase text-stone-400/80"
         >
-          <span>🍕 A LITTLE SLICE OF HEAVEN IN GALLE</span>
+          <span>A LITTLE SLICE OF HEAVEN IN GALLE</span>
           <span className="text-ember-500">✦</span>
-          <span>🔥 HAND-TOSSED WOOD-FIRED FLAVOURS</span>
+          <span>HAND-TOSSED WOOD-FIRED FLAVOURS</span>
           <span className="text-ember-500">✦</span>
-          <span>🌿 PEACEFUL STARLIT GARDEN DINING</span>
+          <span>PEACEFUL STARLIT GARDEN DINING</span>
           <span className="text-ember-500">✦</span>
-          <span>🛵 DIRECT WHATSAPP, UBER EATS &amp; PICKME DELIVERY</span>
+          <span>DIRECT WHATSAPP, UBER EATS &amp; PICKME DELIVERY</span>
           <span className="text-ember-500">✦</span>
-          <span>🍕 A LITTLE SLICE OF HEAVEN IN GALLE</span>
+          <span>A LITTLE SLICE OF HEAVEN IN GALLE</span>
           <span className="text-ember-500">✦</span>
-          <span>🔥 HAND-TOSSED WOOD-FIRED FLAVOURS</span>
+          <span>HAND-TOSSED WOOD-FIRED FLAVOURS</span>
           <span className="text-ember-500">✦</span>
-          <span>🌿 PEACEFUL STARLIT GARDEN DINING</span>
+          <span>PEACEFUL STARLIT GARDEN DINING</span>
         </div>
       </div>
 
@@ -140,7 +140,10 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/15 border border-white/15 text-white font-bold text-xs tracking-[0.14em] uppercase transition flex items-center gap-2"
             >
-              <span>💬 WhatsApp 071 111 8989</span>
+              <svg className="w-4 h-4 fill-current shrink-0 text-emerald-400" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
+              </svg>
+              <span>WhatsApp 071 111 8989</span>
             </a>
           </div>
         </div>
@@ -178,7 +181,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-ember-500/20 border border-white/10 hover:border-ember-500/50 text-xs text-stone-200 font-medium transition"
               >
-                📍 Google Maps (4.4★)
+                Google Maps (4.4★)
               </a>
               <a
                 href="https://www.ubereats.com/lk/store/heavenly-pizza-galle/SV1DJ9IwXcyz1lMebHDKxA"
@@ -186,7 +189,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-ember-500/20 border border-white/10 hover:border-ember-500/50 text-xs text-stone-200 font-medium transition"
               >
-                🛵 Uber Eats
+                Uber Eats
               </a>
               <a
                 href="https://wa.me/94711118989"
@@ -194,7 +197,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-500/50 text-xs text-stone-200 font-medium transition"
               >
-                💬 WhatsApp
+                WhatsApp
               </a>
             </div>
           </div>
@@ -269,23 +272,23 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-stone-400">
               <li className="flex items-center justify-between border-b border-white/5 pb-1">
-                <span className="text-stone-200">👑 Heavenly Mix</span>
+                <span className="text-stone-200">Heavenly Mix</span>
                 <span className="text-gold-400 font-semibold">LKR 2,100</span>
               </li>
               <li className="flex items-center justify-between border-b border-white/5 pb-1">
-                <span className="text-stone-200">🦐 Seafood Supreme</span>
+                <span className="text-stone-200">Seafood Supreme</span>
                 <span className="text-gold-400 font-semibold">LKR 1,900</span>
               </li>
               <li className="flex items-center justify-between border-b border-white/5 pb-1">
-                <span className="text-stone-200">🌶️ Devilled &amp; Nai Miris</span>
+                <span className="text-stone-200">Devilled &amp; Nai Miris</span>
                 <span className="text-gold-400 font-semibold">LKR 1,750</span>
               </li>
               <li className="flex items-center justify-between border-b border-white/5 pb-1">
-                <span className="text-stone-200">🧀 Baked Lasagna</span>
+                <span className="text-stone-200">Baked Lasagna</span>
                 <span className="text-gold-400 font-semibold">LKR 1,450</span>
               </li>
               <li className="flex items-center justify-between">
-                <span className="text-stone-200">🍔 Crispy Chicken Burger</span>
+                <span className="text-stone-200">Crispy Chicken Burger</span>
                 <span className="text-gold-400 font-semibold">LKR 680</span>
               </li>
             </ul>
@@ -305,7 +308,7 @@ export default function Footer() {
                 <span>Open Daily: 1:00 PM – 9:30 PM</span>
               </div>
               <p className="text-stone-300">
-                📞 Hotline:{" "}
+                Hotline:{" "}
                 <a
                   href="tel:+94711118989"
                   className="text-amber-300 hover:underline font-semibold"
@@ -314,7 +317,7 @@ export default function Footer() {
                 </a>
               </p>
               <p className="text-stone-400">
-                ✉️{" "}
+                Email:{" "}
                 <a
                   href="mailto:info@heavenlypizza.lk"
                   className="hover:text-white transition"
@@ -330,7 +333,7 @@ export default function Footer() {
                 htmlFor="footerVipInput"
                 className="block text-[11px] uppercase tracking-wider text-amber-300 font-semibold"
               >
-                🎁 Join Galle Slice VIP Deals
+                Join Galle Slice VIP Deals
               </label>
               <div className="flex gap-1.5">
                 <input

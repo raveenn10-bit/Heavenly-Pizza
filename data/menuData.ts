@@ -8,8 +8,8 @@ export const IMG_PASTA_LASAGNA = "/assets/baked-lasagna.jpg";
 export const IMG_DRINKS_BOBA = "/assets/boba-drinks.jpg";
 
 /**
- * Complete Verified Menu Data from Google Maps & Uber Eats (Galle)
- * Preserves exact text, pricing, categories, tags, and badges from index.html
+ * Verified Artisanal Menu Data - Heavenly Pizza Galle
+ * Refined editorial presentation with exact prices, categories, and ingredients
  */
 export const MENU_ITEMS: MenuItem[] = [
   // Premium & Supreme Pizzas
@@ -21,7 +21,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 2100,
     desc: "Spicy chicken, ocean prawns, cuttlefish, tuna, chicken sausage, black olives, bell pepper, onion & melted mozzarella cheese.",
     tags: ["popular", "seafood", "spicy"],
-    badge: "👑 #1 Bestseller",
+    badge: "Bestseller",
     img: IMG_HERO_PIZZA
   },
   {
@@ -32,7 +32,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1900,
     desc: "Fresh Southern coast cuttlefish, prawns, tuna, mozzarella cheese, crisp bell pepper, onion, and extra virgin olive oil.",
     tags: ["seafood", "popular"],
-    badge: "🦐 Coastal Favorite",
+    badge: "Coastal Special",
     img: IMG_DEVILLED_PIZZA
   },
   {
@@ -43,7 +43,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1750,
     desc: "Signature Sri Lankan devilled chicken tossed in sweet-spicy chili glaze, capsicum, onion, mozzarella cheese & olive oil.",
     tags: ["popular", "spicy"],
-    badge: "🌶️ Galle Favorite",
+    badge: "Galle Signature",
     img: IMG_DEVILLED_PIZZA
   },
   {
@@ -54,7 +54,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1750,
     desc: "Fiery spicy chicken, aromatic Sri Lankan nai miris (scotch bonnet), green chilli, bell pepper, mozzarella & olive oil.",
     tags: ["spicy", "popular"],
-    badge: "🔥 Nai Miris Heat",
+    badge: "Nai Miris Heat",
     img: IMG_DEVILLED_PIZZA
   },
   {
@@ -65,7 +65,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1700,
     desc: "Savory chicken ham, caramelized tropical pineapple chunks, stretchy mozzarella cheese, onion & olive oil.",
     tags: ["popular"],
-    badge: "🍍 Sweet & Savory",
+    badge: "Sweet & Savory",
     img: IMG_HERO_PIZZA
   },
   {
@@ -76,7 +76,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1400,
     desc: "Loaded with spicy roasted chicken, savory chicken sausages, onion, bell pepper, mozzarella cheese & olive oil.",
     tags: ["popular", "spicy"],
-    badge: "🍗 Double Protein",
+    badge: "Double Protein",
     img: IMG_HERO_PIZZA
   },
   {
@@ -87,7 +87,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1360,
     desc: "Smoky chicken salami, juicy chicken sausages, crisp bell pepper, onion, mozzarella cheese & olive oil.",
     tags: ["popular"],
-    badge: "🥩 Meat Lovers",
+    badge: "Meat Lovers",
     img: IMG_HERO_PIZZA
   },
 
@@ -100,7 +100,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1216,
     desc: "Char-spiced tandoori chicken, fresh ginger, roasted garlic, bell pepper, onion, mozzarella cheese & olive oil.",
     tags: ["popular", "spicy", "budget"],
-    badge: "🔥 Smoky Tandoor",
+    badge: "Smoky Tandoor",
     img: IMG_DEVILLED_PIZZA
   },
   {
@@ -111,7 +111,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1216,
     desc: "Velvety butter chicken masala, aromatic ginger & garlic, caramelized onion, mozzarella cheese & olive oil.",
     tags: ["popular", "budget"],
-    badge: "🧈 Creamy Rich",
+    badge: "Creamy Masala",
     img: IMG_HERO_PIZZA
   },
   {
@@ -122,7 +122,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1216,
     desc: "Spiced chicken breast, sliced green chilli, red onion, bubbling mozzarella cheese & olive oil.",
     tags: ["spicy", "budget"],
-    badge: "🌶️ Classic Heat",
+    badge: "Classic Heat",
     img: IMG_DEVILLED_PIZZA
   },
   {
@@ -133,7 +133,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1216,
     desc: "Garden mushroom, crisp capsicum, sweet corn, vine tomato, bell pepper, onion, mozzarella cheese & olive oil.",
     tags: ["budget"],
-    badge: "🌱 100% Vegetarian",
+    badge: "100% Vegetarian",
     img: IMG_HERO_PIZZA
   },
   {
@@ -144,7 +144,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1136,
     desc: "Slow-simmered chicken bolognese ragù, melted mozzarella cheese, bell pepper & sweet onion.",
     tags: ["budget"],
-    badge: "🇮🇹 Italian Classic",
+    badge: "Italian Classic",
     img: IMG_HERO_PIZZA
   },
   {
@@ -155,7 +155,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 994,
     desc: "Artisanal mozzarella cheese, sun-ripened tomato, bell pepper, onion & extra virgin olive oil.",
     tags: ["budget", "popular"],
-    badge: "🧀 Pure Cheese",
+    badge: "Artisan Cheese",
     img: IMG_HERO_PIZZA
   },
   {
@@ -166,7 +166,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 994,
     desc: "Sliced chicken sausages, cracked black pepper, onion, mozzarella cheese & olive oil.",
     tags: ["budget"],
-    badge: "🍕 Kid Favorite",
+    badge: "Family Favorite",
     img: IMG_HERO_PIZZA
   },
   {
@@ -177,7 +177,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 994,
     desc: "Savory cured chicken salami slices over melted mozzarella cheese and signature herb tomato base.",
     tags: ["budget"],
-    badge: "🍕 Value Classic",
+    badge: "Classic Salami",
     img: IMG_HERO_PIZZA
   },
 
@@ -190,7 +190,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1450,
     desc: "Layers of rich spiced chicken meat sauce, velvety béchamel, and premium mozzarella baked until golden and bubbling.",
     tags: ["popular"],
-    badge: "🧀 Every Layer Tells a Story",
+    badge: "Chef's Lasagna",
     img: IMG_PASTA_LASAGNA
   },
   {
@@ -201,7 +201,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1200,
     desc: "Al dente pasta ribbons folded into a rich parmesan cream sauce with savoury chicken strips, black pepper & herbs.",
     tags: ["popular", "budget"],
-    badge: "🍝 Best Seller",
+    badge: "Creamy Carbonara",
     img: IMG_PASTA_LASAGNA
   },
   {
@@ -212,7 +212,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1200,
     desc: "Velvety double-cheese sauce, black olives, sweet corn, and fresh herbs baked to cheesy perfection.",
     tags: ["budget"],
-    badge: "🧀 Cheese Lover",
+    badge: "Cheesy Penne",
     img: IMG_PASTA_LASAGNA
   },
 
@@ -225,7 +225,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 680,
     desc: "Crunchy golden-fried chicken breast fillet, melted cheddar slice, spicy house mayo & crisp lettuce on a toasted bun.",
     tags: ["popular", "budget"],
-    badge: "🍔 Unbeatable Value",
+    badge: "Crispy Fried",
     img: IMG_CRISPY_BURGER
   },
   {
@@ -236,7 +236,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 650,
     desc: "Juicy herb-seasoned chicken patty, caramelized onions, fresh greens, and signature burger sauce.",
     tags: ["budget"],
-    badge: "🍔 Classic Choice",
+    badge: "Classic Burger",
     img: IMG_CRISPY_BURGER
   },
   {
@@ -247,7 +247,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1550,
     desc: "Four pieces of golden crunchy fried chicken breast — juicy inside, ultra-crispy outside — served with seasoned French Fries.",
     tags: ["popular"],
-    badge: "🍗 Golden & Juicy",
+    badge: "Platter Special",
     img: IMG_CRISPY_BURGER
   },
   {
@@ -258,7 +258,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 780,
     desc: "Tender crispy chicken strips, crunchy garden slaw, and roasted garlic sauce wrapped in a warm grilled tortilla.",
     tags: ["budget"],
-    badge: "🌯 Quick Bite",
+    badge: "Crispy Wrap",
     img: IMG_CRISPY_BURGER
   },
 
@@ -271,7 +271,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1750,
     desc: "Fragrant long-grain basmati rice wok-tossed with eggs, roast chicken, cuttlefish, prawns, tuna & chicken sausage.",
     tags: ["popular", "seafood"],
-    badge: "🍚 Full Feast",
+    badge: "Mixed Special",
     img: IMG_PASTA_LASAGNA
   },
   {
@@ -282,7 +282,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1550,
     desc: "Wok-fired basmati rice with farm eggs, ocean prawns, tender cuttlefish, tuna & spring onion.",
     tags: ["seafood"],
-    badge: "🦐 Coastal Wok",
+    badge: "Coastal Wok",
     img: IMG_PASTA_LASAGNA
   },
   {
@@ -293,7 +293,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1350,
     desc: "Aromatic egg fried basmati rice crowned with golden crispy fried chicken legs and chili paste.",
     tags: ["popular", "spicy"],
-    badge: "🍗 Local Favorite",
+    badge: "Local Special",
     img: IMG_CRISPY_BURGER
   },
   {
@@ -304,7 +304,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 1040,
     desc: "Fluffy basmati rice wok-tossed with seasoned chicken, eggs, carrots & leeks.",
     tags: ["budget"],
-    badge: "🍚 Everyday Classic",
+    badge: "Everyday Classic",
     img: IMG_PASTA_LASAGNA
   },
 
@@ -317,7 +317,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 750,
     desc: "Chilled brown sugar tapioca pearl milk tea or tropical passionfruit & virgin mint mojito mocktail.",
     tags: ["popular", "budget"],
-    badge: "🧋 Refreshing Boba",
+    badge: "Brown Sugar Boba",
     img: IMG_DRINKS_BOBA
   },
   {
@@ -328,7 +328,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 600,
     desc: "Crispy golden potato fries lightly dusted with peri-peri and sea salt, served with tomato ketchup & garlic dip.",
     tags: ["popular", "budget"],
-    badge: "🍟 Popular Side",
+    badge: "Crispy Fries",
     img: IMG_CRISPY_BURGER
   },
   {
@@ -339,15 +339,11 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 600,
     desc: "Fluffy farm-egg omelette folded with green chillies, red onions, tomatoes, and melted cheese.",
     tags: ["spicy", "budget"],
-    badge: "🍳 Hot Bite",
+    badge: "Spicy Omelette",
     img: IMG_DEVILLED_PIZZA
   }
 ];
 
-/**
- * Format currency in Sri Lankan Rupees (LKR)
- * Example: formatLKR(2100) -> "LKR 2,100"
- */
 export function formatLKR(num: number): string {
   return "LKR " + Number(num).toLocaleString("en-LK");
 }

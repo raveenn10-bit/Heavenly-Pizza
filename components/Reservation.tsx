@@ -15,7 +15,7 @@ export default function Reservation() {
     date: "",
     time: "7:00 PM",
     guests: "4 Guests",
-    seating: "🌿 Peaceful Garden Seating",
+    seating: "Peaceful Garden Seating",
     occasion: "Casual Dining",
     notes: "",
   });
@@ -76,7 +76,7 @@ export default function Reservation() {
     const notes = formData.notes.trim() || "Standard table setup";
 
     const resText =
-      `🌿 *HEAVENLY PIZZA GALLE — TABLE RESERVATION*\n` +
+      `*HEAVENLY PIZZA GALLE — TABLE RESERVATION*\n` +
       `Guest Name: ${name}\n` +
       `Phone: ${phone}\n` +
       `Date & Time: ${date} at ${time}\n` +
@@ -84,7 +84,7 @@ export default function Reservation() {
       `Seating Area: ${seating}\n` +
       `Occasion: ${occasion}\n` +
       `Special Notes: ${notes}\n` +
-      `📍 Kahaduwawattha, Baddegama Rd, Galle (071 111 8989)`;
+      `Location: Kahaduwawattha, Baddegama Rd, Galle (071 111 8989)`;
 
     openConfirmationModal("Table Reservation Pass Created!", resText);
   };
@@ -234,14 +234,14 @@ export default function Reservation() {
                   }
                   className="w-full px-4 py-2.5 rounded-xl bg-obsidian-900 border border-white/15 text-sm text-white focus:outline-none focus:border-ember-500"
                 >
-                  <option value="🌿 Peaceful Garden Seating">
-                    🌿 Peaceful Outdoor Garden
+                  <option value="Peaceful Garden Seating">
+                    Peaceful Outdoor Garden
                   </option>
-                  <option value="🏠 Cozy Indoor Dining">
-                    🏠 Cozy Indoor Dining Area
+                  <option value="Cozy Indoor Dining">
+                    Cozy Indoor Dining Lounge
                   </option>
-                  <option value="✨ Best Available Table">
-                    ✨ Best Available Table
+                  <option value="Best Available Table">
+                    Best Available Table
                   </option>
                 </select>
               </div>
@@ -262,13 +262,13 @@ export default function Reservation() {
                 >
                   <option value="Casual Dining">Casual Family / Friends Meal</option>
                   <option value="Birthday Celebration">
-                    🎂 Birthday Celebration
+                    Birthday Celebration
                   </option>
                   <option value="Bride-to-Be / Bridal Shower">
-                    👰 Bride-to-Be / Party Decor
+                    Bride-to-Be / Party Decor
                   </option>
                   <option value="Anniversary / Date Night">
-                    🥂 Date Night / Anniversary
+                    Date Night / Anniversary
                   </option>
                 </select>
               </div>
@@ -295,9 +295,9 @@ export default function Reservation() {
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-ember-500 to-amber-600 hover:from-ember-600 hover:to-amber-500 text-white font-bold text-sm shadow-xl ember-glow transition"
+              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-ember-500 to-amber-600 hover:from-ember-600 hover:to-amber-500 text-white font-bold text-sm tracking-wide shadow-xl ember-glow transition"
             >
-              ✨ Confirm Booking Request &amp; Generate Pass
+              Confirm Booking Request &amp; Generate Pass
             </button>
           </form>
         </div>
@@ -316,7 +316,12 @@ export default function Reservation() {
 
             <div className="space-y-4 text-sm">
               <div className="flex items-start gap-3.5">
-                <span className="text-lg">📍</span>
+                <div className="w-8 h-8 rounded-lg bg-ember-500/10 border border-ember-500/20 flex items-center justify-center shrink-0 text-ember-400">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
                 <div>
                   <div className="font-semibold text-white">
                     Galle Flagship Location
@@ -337,7 +342,11 @@ export default function Reservation() {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <span className="text-lg">🕒</span>
+                <div className="w-8 h-8 rounded-lg bg-ember-500/10 border border-ember-500/20 flex items-center justify-center shrink-0 text-ember-400">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
                 <div>
                   <div className="font-semibold text-white">Opening Hours</div>
                   <div className="text-stone-400 text-xs mt-0.5">
@@ -350,7 +359,11 @@ export default function Reservation() {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <span className="text-lg">📞</span>
+                <div className="w-8 h-8 rounded-lg bg-ember-500/10 border border-ember-500/20 flex items-center justify-center shrink-0 text-ember-400">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
                 <div>
                   <div className="font-semibold text-white">
                     Direct Hotline &amp; WhatsApp
@@ -370,17 +383,17 @@ export default function Reservation() {
                 href="https://wa.me/94711118989"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-3 px-4 rounded-xl bg-emerald-600/90 hover:bg-emerald-600 text-white font-semibold text-xs text-center transition"
+                className="py-3 px-4 rounded-xl bg-emerald-600/90 hover:bg-emerald-600 text-white font-semibold text-xs text-center transition flex items-center justify-center gap-1.5"
               >
-                💬 WhatsApp Us
+                <span>WhatsApp Us</span>
               </a>
               <a
                 href="https://www.ubereats.com/lk/store/heavenly-pizza-galle/SV1DJ9IwXcyz1lMebHDKxA"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-amber-200 font-semibold text-xs text-center transition border border-white/10"
+                className="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-amber-200 font-semibold text-xs text-center transition border border-white/10 flex items-center justify-center gap-1.5"
               >
-                🛵 Order on Uber Eats
+                <span>Order on Uber Eats</span>
               </a>
             </div>
           </div>
