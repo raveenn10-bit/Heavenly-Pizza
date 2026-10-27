@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, FormEvent } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCart } from "@/context/CartContext";
@@ -127,13 +128,13 @@ export default function Footer() {
             </h3>
           </div>
           <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-            <a
-              href="#menuSection"
-              className="px-6 py-3 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white font-bold text-xs tracking-[0.14em] uppercase shadow-lg ember-glow transition flex items-center gap-2"
+            <Link
+              href="/menu"
+              className="px-6 py-3 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white font-bold text-xs tracking-[0.14em] uppercase shadow-lg ember-glow transition flex items-center gap-2 btn-magnetic"
             >
               <span>Order Online Now</span>
               <span>↗</span>
-            </a>
+            </Link>
             <a
               href="https://wa.me/94711118989"
               target="_blank"
@@ -148,10 +149,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 4-Column Professional Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-white/10">
-          {/* Col 1: Brand Story & Emblem (4 cols) */}
-          <div className="lg:col-span-4 space-y-4 gsap-footer-reveal">
+        {/* 4-Column Professional Footer Grid - Split in 2 side-by-side columns on Mobile */}
+        <div className="grid grid-cols-2 lg:grid-cols-12 gap-x-6 gap-y-8 lg:gap-10 pb-10 border-b border-white/10">
+          {/* Col 1: Brand Story & Emblem (Full width 2 cols on mobile, 4 cols on desktop) */}
+          <div className="col-span-2 lg:col-span-4 space-y-4 gsap-footer-reveal">
             <a href="#heroSection" className="inline-flex items-center gap-3.5 group">
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-ember-500 shadow-lg ember-glow group-hover:scale-105 transition">
                 <img
@@ -202,71 +203,62 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Col 2: Quick Navigation (2 cols) */}
-          <div className="lg:col-span-2 space-y-3 gsap-footer-reveal">
+          {/* Col 2: Quick Navigation (1 col on mobile, 2 cols on desktop) */}
+          <div className="col-span-1 lg:col-span-2 space-y-3 gsap-footer-reveal">
             <h4 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white">
               Explore
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
-                <a
-                  href="#heroSection"
+                <Link
+                  href="/"
                   className="hover:text-ember-400 transition flex items-center gap-1.5"
                 >
                   <span className="text-ember-500">→</span>
                   <span>Home Cinema</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#signatureShowcaseSection"
-                  className="hover:text-ember-400 transition flex items-center gap-1.5"
-                >
-                  <span className="text-ember-500">→</span>
-                  <span>Chef&apos;s Spotlight</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#menuSection"
+                <Link
+                  href="/menu"
                   className="hover:text-ember-400 transition flex items-center gap-1.5"
                 >
                   <span className="text-ember-500">→</span>
                   <span>Full Menu (27)</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#customizerSection"
+                <Link
+                  href="/studio"
                   className="hover:text-ember-400 transition flex items-center gap-1.5"
                 >
                   <span className="text-ember-500">→</span>
                   <span>Slice Studio</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#ambienceSection"
+                <Link
+                  href="/ambience"
                   className="hover:text-ember-400 transition flex items-center gap-1.5"
                 >
                   <span className="text-ember-500">→</span>
-                  <span>Garden Vibe</span>
-                </a>
+                  <span>Garden &amp; Story</span>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#reservationSection"
+                <Link
+                  href="/reservations"
                   className="hover:text-ember-400 transition flex items-center gap-1.5"
                 >
                   <span className="text-ember-500">→</span>
                   <span>Book a Table</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Signature Cravings (3 cols) */}
-          <div className="lg:col-span-3 space-y-3 gsap-footer-reveal">
+          {/* Col 3: Signature Cravings (1 col on mobile, 3 cols on desktop) */}
+          <div className="col-span-1 lg:col-span-3 space-y-3 gsap-footer-reveal">
             <h4 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white">
               Galle Signatures
             </h4>
@@ -294,8 +286,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Visit & Hours + VIP Club (3 cols) */}
-          <div className="lg:col-span-3 space-y-3.5 gsap-footer-reveal">
+          {/* Col 4: Visit & Hours + VIP Club (Full width 2 cols on mobile, 3 cols on desktop) */}
+          <div className="col-span-2 lg:col-span-3 space-y-3.5 gsap-footer-reveal">
             <h4 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white">
               Visit Flagship
             </h4>

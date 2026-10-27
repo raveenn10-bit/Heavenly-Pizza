@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCart } from "@/context/CartContext";
@@ -157,13 +158,20 @@ export default function Hero() {
 
             {/* Primary Action Button */}
             <div className="flex flex-wrap items-center gap-4 pt-2" id="heroCtaRow">
-              <a
-                href="#menuSection"
-                className="px-8 py-4 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white font-bold text-xs sm:text-sm tracking-[0.16em] uppercase shadow-lg ember-glow transition transform hover:-translate-y-0.5 flex items-center gap-3"
+              <Link
+                href="/menu"
+                className="px-8 py-4 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white font-bold text-xs sm:text-sm tracking-[0.16em] uppercase shadow-lg ember-glow transition transform hover:-translate-y-0.5 flex items-center gap-3 btn-magnetic"
               >
                 <span>EXPLORE THE MENU</span>
                 <span className="text-base leading-none">↗</span>
-              </a>
+              </Link>
+              <Link
+                href="/studio"
+                className="px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-stone-200 hover:text-white font-bold text-xs sm:text-sm tracking-[0.16em] uppercase transition transform hover:-translate-y-0.5 flex items-center gap-2 btn-magnetic"
+              >
+                <span>SLICE STUDIO</span>
+                <span className="text-base leading-none">✦</span>
+              </Link>
             </div>
 
             {/* Hallmark Callout */}

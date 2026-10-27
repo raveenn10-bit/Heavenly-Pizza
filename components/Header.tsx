@@ -1,11 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { cartCount, openCart } = useCart();
+  const pathname = usePathname();
+
+  const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "The Menu", href: "/menu" },
+    { label: "Slice Studio", href: "/studio" },
+    { label: "Our Vibe", href: "/ambience" },
+    { label: "Reservations", href: "/reservations" },
+  ];
 
   return (
     <>
@@ -27,83 +38,84 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Sticky Dark Header */}
+      {/* Sticky Dark Header with Figma Blur & Precision */}
       <header className="sticky top-0 z-40 glass-nav">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand Logo & Editorial Title */}
-          <a href="#heroSection" className="flex items-center gap-3.5 group focus:outline-none">
-            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border border-ember-500/60 shadow-md group-hover:scale-105 transition duration-300 shrink-0 bg-[#e03e1a]">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 group focus:outline-none shrink min-w-0">
+            <div className="relative w-9 h-9 sm:w-12 sm:h-12 rounded-full overflow-hidden border border-ember-500/60 shadow-md group-hover:scale-105 transition duration-300 shrink-0 bg-[#e03e1a]">
               <img
                 src="/assets/heavenly-logo.jpg"
                 alt="Heavenly Pizza Official Logo"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="leading-none">
-              <span className="block font-serif font-extrabold text-lg sm:text-xl tracking-wider text-white">
+            <div className="leading-tight shrink min-w-0">
+              <span className="block font-serif font-extrabold text-base sm:text-xl tracking-wider text-white whitespace-nowrap">
                 HEAVENLY
               </span>
-              <p id="brandSubTagline" className="text-xs text-stone-300 font-serif italic mt-0.5">
+              <p id="brandSubTagline" className="text-[10px] sm:text-xs text-stone-300 font-serif italic mt-0.5 whitespace-nowrap">
                 pizza · galle
               </p>
             </div>
-          </a>
+          </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-stone-300">
-            <a href="#menuSection" className="hover:text-white transition tracking-wide">
-              The Menu
-            </a>
-            <a href="#customizerSection" className="hover:text-white transition tracking-wide">
-              Slice Studio
-            </a>
-            <a href="#ambienceSection" className="hover:text-white transition tracking-wide">
-              Our Vibe
-            </a>
-            <a href="#reviewsSection" className="hover:text-white transition tracking-wide">
-              Stories
-            </a>
-            <a href="#reservationSection" className="hover:text-white transition tracking-wide">
-              Find Us
-            </a>
+          {/* Desktop Navigation with Figma Active Pill States */}
+          <nav className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 ${
+                    isActive
+                      ? "nav-pill-active"
+                      : "text-stone-300 hover:text-white hover:bg-white/[0.06]"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Action Buttons: Cart + Order CTA + Mobile Menu */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
               id="openCartBtn"
               type="button"
               onClick={openCart}
               aria-label="View Order Tray"
-              className="relative flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs sm:text-sm font-semibold transition"
+              className="relative flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs sm:text-sm font-semibold btn-magnetic"
             >
               <svg className="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <span className="sr-only sm:not-sr-only sm:inline text-stone-200">Order Tray</span>
+              <span className="hidden sm:inline text-stone-200">Order Tray</span>
               <span
                 id="cartCountBadge"
-                className="px-2 py-0.5 rounded-full bg-ember-500 text-white text-xs font-bold"
+                className="px-1.5 sm:px-2 py-0.5 rounded-full bg-ember-500 text-white text-[11px] sm:text-xs font-bold min-w-5 text-center"
               >
                 {cartCount}
               </span>
             </button>
 
-            <a
-              href="#menuSection"
+            <Link
+              href="/menu"
               id="headerLetsEatBtn"
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white text-xs sm:text-sm font-bold tracking-wider uppercase shadow-md transition"
+              className="hidden md:inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#e84a27] hover:bg-[#d43815] text-white text-xs sm:text-sm font-bold tracking-wider uppercase shadow-md btn-magnetic"
             >
               <span>Explore Menu</span>
               <span>↗</span>
-            </a>
+            </Link>
 
             <button
               id="mobileMenuBtn"
               type="button"
               aria-label="Toggle Menu"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="lg:hidden p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white"
+              className="lg:hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -121,51 +133,26 @@ export default function Header() {
         <div
           id="mobileNavDrawer"
           className={`${
-            mobileMenuOpen ? "block" : "hidden"
-          } lg:hidden bg-obsidian-900/98 border-b border-white/10 px-5 pt-4 pb-6 space-y-3 text-sm`}
+            mobileMenuOpen ? "block animate-page-enter" : "hidden"
+          } lg:hidden bg-obsidian-900/98 border-b border-white/10 px-5 pt-4 pb-6 space-y-2 text-sm`}
         >
-          <a
-            href="#heroSection"
-            onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
-          >
-            Home Cinema Experience
-          </a>
-          <a
-            href="#menuSection"
-            onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
-          >
-            The Menu (27 Verified Items)
-          </a>
-          <a
-            href="#customizerSection"
-            onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
-          >
-            Bespoke Slice Studio Atelier
-          </a>
-          <a
-            href="#ambienceSection"
-            onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
-          >
-            Garden Dining &amp; Ambience
-          </a>
-          <a
-            href="#reviewsSection"
-            onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
-          >
-            Guest Stories (10,000+ Community)
-          </a>
-          <a
-            href="#reservationSection"
-            onClick={() => setMobileMenuOpen(false)}
-            className="mobile-nav-link block py-2 px-3 rounded-lg hover:bg-white/5 text-stone-200 font-medium"
-          >
-            Location &amp; Table Concierge
-          </a>
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`mobile-nav-link block py-2.5 px-3.5 rounded-xl font-medium transition ${
+                  isActive
+                    ? "bg-ember-500/20 text-white border border-ember-500/40"
+                    : "text-stone-300 hover:bg-white/5 hover:text-white"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <div className="pt-3 flex gap-2.5">
             <a
               href="tel:+94711118989"

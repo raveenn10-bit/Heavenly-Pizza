@@ -132,12 +132,141 @@ body {
   border-color: rgba(232, 74, 39, 0.85);
 }
 
+/* Figma Spring & Motion Utilities */
+:root {
+  --ease-figma: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Page Entrance Transitions */
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.995);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-page-enter {
+  animation: pageEnter 0.65s var(--ease-figma) forwards;
+}
+
+/* Figma-Style Micro-Interactions */
+.figma-interactive-card {
+  transition: transform 0.45s var(--ease-figma), box-shadow 0.45s var(--ease-figma), border-color 0.35s ease;
+}
+.figma-interactive-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(232, 74, 39, 0.4);
+  box-shadow: 0 20px 40px -15px rgba(232, 74, 39, 0.22), 0 0 0 1px rgba(232, 74, 39, 0.15);
+}
+
+/* Magnetic Button Hover Feel */
+.btn-magnetic {
+  transition: transform 0.25s var(--ease-figma), box-shadow 0.25s var(--ease-figma), filter 0.25s ease;
+}
+.btn-magnetic:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+.btn-magnetic:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Active Nav Pill Transition */
+.nav-pill-active {
+  background: rgba(232, 74, 39, 0.15);
+  border: 1px solid rgba(232, 74, 39, 0.45);
+  color: #ffffff;
+  box-shadow: 0 0 16px -2px rgba(232, 74, 39, 0.35);
+}
+
+/* Professional Editorial Typography */
+.font-display {
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+.font-editorial-sub {
+  font-family: var(--font-cinzel), 'Cinzel', serif;
+  letter-spacing: 0.18em;
+}
+
+.eyebrow-luxury {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #f59e0b;
+}
+
 @keyframes floatSlow {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-9px); }
 }
 .animate-float {
   animation: floatSlow 5s ease-in-out infinite;
+}
+
+/* Shimmer Border Beam */
+@keyframes borderGlowPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.85; }
+}
+.shimmer-border {
+  animation: borderGlowPulse 4s ease-in-out infinite;
+}
+
+/* Horizontal Continuous Auto-Scroll (Left to Right & Right to Left) */
+@keyframes autoScrollL2R {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes autoScrollR2L {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.horizontal-auto-scroll-l2r {
+  display: flex;
+  width: max-content;
+  animation: autoScrollL2R 40s linear infinite;
+  will-change: transform;
+}
+
+.horizontal-auto-scroll-r2l {
+  display: flex;
+  width: max-content;
+  animation: autoScrollR2L 40s linear infinite;
+  will-change: transform;
+}
+
+.pause-on-hover:hover .horizontal-auto-scroll-l2r,
+.pause-on-hover:hover .horizontal-auto-scroll-r2l,
+.pause-on-hover:active .horizontal-auto-scroll-l2r,
+.pause-on-hover:active .horizontal-auto-scroll-r2l {
+  animation-play-state: paused;
+}
+
+/* Mobile-Friendly Horizontal Snap Track */
+@media (max-width: 767px) {
+  .mobile-snap-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .mobile-snap-track::-webkit-scrollbar {
+    display: none;
+  }
+  .mobile-snap-item {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
 }
 
 /* Hide scrollbar utility */

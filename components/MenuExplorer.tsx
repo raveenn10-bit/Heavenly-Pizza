@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { MENU_ITEMS } from "@/data/menuData";
 import { MenuItem, MenuCategory, DietaryTag } from "@/types/menu";
 import { useCart } from "@/context/CartContext";
@@ -36,29 +36,29 @@ function MenuCard({
           <span className="depth-layer-mid absolute top-3 left-3 px-3 py-1 rounded-full bg-obsidian-950/85 backdrop-blur-md border border-white/10 text-[11px] font-medium text-amber-300">
             {item.badge}
           </span>
-          <span className="depth-layer-mid absolute bottom-3 right-3 px-3 py-1 rounded-xl bg-obsidian-950/90 backdrop-blur-md border border-gold-500/30 text-gold-400 font-bold text-xs sm:text-sm">
+          <span className="depth-layer-mid absolute bottom-3 right-3 px-2.5 sm:px-3 py-1 rounded-xl bg-obsidian-950/90 backdrop-blur-md border border-gold-500/30 text-gold-400 font-bold text-xs sm:text-sm shrink-0 whitespace-nowrap">
             {formatLKR(item.price)}
           </span>
         </div>
-        <div className="depth-layer-mid p-5">
+        <div className="depth-layer-mid p-4 sm:p-5">
           <div className="text-[10px] uppercase tracking-[0.2em] text-ember-400 font-semibold mb-1">
             {item.tier}
           </div>
-          <h3 className="font-serif text-lg sm:text-xl font-bold text-white group-hover:text-gold-300 transition">
+          <h3 className="font-serif text-lg sm:text-xl font-bold text-white group-hover:text-gold-300 transition break-words">
             {item.name}
           </h3>
           <p className="text-xs text-stone-400 mt-1.5 leading-relaxed">{item.desc}</p>
         </div>
       </div>
-      <div className="depth-layer-front px-5 pb-5 pt-2 flex items-center justify-between gap-3 relative z-20">
+      <div className="depth-layer-front px-4 sm:px-5 pb-4 sm:pb-5 pt-2 flex items-center justify-between gap-3 relative z-20">
         <button
           type="button"
           data-add-id={item.id}
           onClick={() => onAddToCart(item)}
-          className="add-to-cart-btn flex-1 py-2.5 px-4 rounded-xl bg-white/5 hover:bg-ember-500 text-stone-200 hover:text-white font-semibold text-xs transition flex items-center justify-center gap-2 border border-white/10 hover:border-ember-500 shadow-sm"
+          className="add-to-cart-btn w-full py-2.5 px-3 sm:px-4 rounded-xl bg-white/5 hover:bg-ember-500 text-stone-200 hover:text-white font-semibold text-xs transition flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 border border-white/10 hover:border-ember-500 shadow-sm"
         >
           <span>Add to Order</span>
-          <span className="text-amber-300/90 group-hover:text-white font-bold">
+          <span className="text-amber-300/90 group-hover:text-white font-bold whitespace-nowrap">
             &middot; {formatLKR(item.price)}
           </span>
         </button>
@@ -72,6 +72,23 @@ export default function MenuExplorer() {
   const [activeCategory, setActiveCategory] = useState<MenuCategory>("all");
   const [activeTagFilter, setActiveTagFilter] = useState<DietaryTag>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    const el = tabsRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 6);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 6);
+  };
+
+  useEffect(() => {
+    checkScroll();
+    window.addEventListener("resize", checkScroll);
+    return () => window.removeEventListener("resize", checkScroll);
+  }, []);
 
   const filteredItems = useMemo(() => {
     return MENU_ITEMS.filter((item) => {
@@ -107,7 +124,7 @@ export default function MenuExplorer() {
   return (
     <section id="menuSection" className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-6">
         <div>
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ember-400 block mb-2">
             Verified Galle Menu &middot; Artisanal Flavours
@@ -118,15 +135,15 @@ export default function MenuExplorer() {
         </div>
 
         {/* Search & Quick Filter Controls */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          <div className="relative">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
+          <div className="relative w-full sm:w-72">
             <input
               id="menuSearchInput"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search dishes, ingredients, lasagna..."
-              className="w-full sm:w-72 pl-10 pr-4 py-2.5 rounded-full bg-obsidian-800 border border-white/10 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-ember-500/70"
+              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-obsidian-800 border border-white/10 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-ember-500/70"
             />
             <svg
               className="w-4 h-4 text-stone-400 absolute left-3.5 top-3"
@@ -148,7 +165,7 @@ export default function MenuExplorer() {
             aria-label="Filter menu by tag"
             value={activeTagFilter}
             onChange={(e) => setActiveTagFilter(e.target.value as DietaryTag)}
-            className="px-4 py-2.5 rounded-full bg-obsidian-800 border border-white/10 text-sm text-amber-200 focus:outline-none focus:border-ember-500/70 cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-full bg-obsidian-800 border border-white/10 text-sm text-amber-200 focus:outline-none focus:border-ember-500/70 cursor-pointer"
           >
             <option value="all">All Specialties</option>
             <option value="popular">Customer Favorites</option>
@@ -159,33 +176,53 @@ export default function MenuExplorer() {
         </div>
       </div>
 
-      {/* Category Tabs */}
-      <div
-        id="categoryTabsContainer"
-        className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar"
-      >
-        {categories.map((cat) => {
-          const isActive = activeCategory === cat.key;
-          return (
-            <button
-              key={cat.key}
-              type="button"
-              data-category={cat.key}
-              onClick={() => setActiveCategory(cat.key)}
-              className={`menu-cat-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition ${
-                isActive
-                  ? "bg-ember-500 text-white shadow-md font-semibold"
-                  : "bg-obsidian-800/90 hover:bg-obsidian-700 text-stone-300 border border-white/10"
-              }`}
-            >
-              {cat.label}
-            </button>
-          );
-        })}
+      {/* Category Tabs Container with Scroll Cues */}
+      <div className="relative mb-8">
+        {/* Subtle Left Scroll Cue Gradient */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute -left-4 sm:left-0 top-0 bottom-0 w-8 sm:w-10 bg-gradient-to-r from-[#070606] to-transparent z-10 transition-opacity duration-300 ${
+            canScrollLeft ? "opacity-100" : "opacity-0"
+          }`}
+        />
+
+        {/* Subtle Right Scroll Cue Gradient */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute -right-4 sm:right-0 top-0 bottom-0 w-10 sm:w-14 bg-gradient-to-l from-[#070606] to-transparent z-10 transition-opacity duration-300 ${
+            canScrollRight ? "opacity-100" : "opacity-0"
+          }`}
+        />
+
+        <div
+          id="categoryTabsContainer"
+          ref={tabsRef}
+          onScroll={checkScroll}
+          className="-mx-4 px-4 sm:mx-0 sm:px-0 flex items-center gap-2 overflow-x-auto no-scrollbar py-2 scroll-smooth"
+        >
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat.key;
+            return (
+              <button
+                key={cat.key}
+                type="button"
+                data-category={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                className={`menu-cat-btn shrink-0 whitespace-nowrap text-xs sm:text-sm font-medium px-4 py-2 sm:px-5 sm:py-2.5 rounded-full transition ${
+                  isActive
+                    ? "bg-ember-500 text-white shadow-md font-semibold"
+                    : "bg-obsidian-800/90 hover:bg-obsidian-700 text-stone-300 border border-white/10"
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Dynamic Menu Grid */}
-      <div id="menuGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 perspective-stage">
+      <div id="menuGrid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 perspective-stage">
         {filteredItems.map((item) => (
           <MenuCard
             key={item.id}
